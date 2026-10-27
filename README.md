@@ -15,9 +15,9 @@ failure modes we hit on Ampere.
 | | llama.cpp (q8_0 KV) | vLLM (bf16 KV) | vLLM final (fp8 KV + MTP n=3) |
 |---|---|---|---|
 | max context | 262,144 | 114,688 | **262,144** |
-| KV pool | 262k shared | 119,553 tokens | 262,144 tokens (1.00×) |
+| KV pool | 262k shared | 119,553 tokens | 262k–294k tokens (1.00–1.12×) |
 | VRAM | 19.9 GB | 22.5 GB | 23.5 GB |
-| decode @38k, long output | 60.7 tok/s | 29.7 tok/s | not re-measured |
+| decode @38k, long output | 60.7 tok/s | 29.7 tok/s | **67.0 tok/s** |
 | 4 concurrent short streams | — | 167 tok/s agg | **253.8 tok/s agg** |
 | solo decode, short ctx | 84 tok/s | 84 tok/s | 83.3 tok/s |
 
@@ -28,5 +28,10 @@ speculative decoding on. The earlier "fp8 KV crashes under load" result was a
 
 ## Status
 
-Local draft — not published yet. Paths/hostnames sanitized; hardware details kept.
-Licensing to be decided before any public release; see `CREDITS.md` for authors.
+Published (companion repo). Canonical article lives on smartphotocropper.com once the
+blog post ships; this repo carries the full text, raw measurements and harnesses.
+Paths/hostnames sanitized, hardware details kept. License to be added; see `CREDITS.md`
+for authors.
+
+Every number above came from a run on this machine, including the 38k/long-output cell
+(67.0 tok/s on the final fp8 + MTP n=3 config, needle verified).
