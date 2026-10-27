@@ -137,6 +137,11 @@ state + `docker logs`, never by the health endpoint. Logs kept: `*_logs.txt` nex
 
 # BREAKTHROUGH (2026-10-27, same day): the blocker was MTP, not fp8
 
+> **Read the FINAL section at the bottom of this file.** This section proved that
+> *removing* MTP makes fp8 KV work (and reach 262k). The next step localized the real
+> trigger to the draft depth: `num_speculative_tokens: 7` crashed, `3` is stable — so
+> MTP was kept after all. Use the FINAL config.
+
 Man's real ask: more context in 24 GB, ideally 8-bit KV. The fp8 wall above was NOT fp8 — it was
 the image's baked-in **MTP speculative decoding** (`--speculative-config {"method":"mtp",
 "num_speculative_tokens":7}` in the image ENTRYPOINT). Removing it (override `--entrypoint vllm`
@@ -167,3 +172,34 @@ x4 aggregate IMPROVES (167.1 -> 193.7) because spec-decode overhead is gone.
 - `bonsai vllm-max` = fp8 KV, no MTP, 262k ctx (current live): 311,200-token pool, 2.5 GB free.
 - `bonsai vllm`     = old fast shape (MTP, bf16, 32k, 83 t/s solo) — kept as the speed option.
 - `bonsai llama`    = 262k llama.cpp (60.7 t/s at 38k, 2 slots).
+
+
+---
+
+# FINAL: MTP back + 262k context (2026-10-27)
+
+Root cause of the fp8+MTP crash was the **draft depth**: the image entrypoint bakes
+`num_speculative_tokens: 7`. At n=7 with fp8 KV, 4 concurrent streams hit the IMA. Overriding it
+with `--speculative-config '{"method":"mtp","num_speculative_tokens":3}'` (duplicate CLI arg wins)
+fixes it AND shrinks the KV accounting (vLLM sizes the pool by draft depth):
+
+| n_spec | KV pool @32k len | x4 agg | x4 |
+|---|---|---|---|
+| 7 (image default) | 135,952 (3.70x) | CRASH | engine dead |
+| **3** | **162,929 (4.97x)** | **246.5 t/s** | OK |
+| 0 (MTP off) | 277,162 (8.46x) | 193.7 t/s | OK |
+
+## MTP n=3 + fp8 KV, scaling max-model-len (all stable, graphs on)
+| max-len | KV pool | concurrency | solo t/s | proof |
+|---|---|---|---|---|
+| 32,768 | 162,929 | 4.97x | 82.3 | x4 short 246.5 agg |
+| 131,072 | 241,875 | 1.85x | — | 1x114k needle ok (141 s); 2x57k parallel 80.3 s |
+| **262,144** | **262,144** | **1.00x** | **83.3** | **1x218,559-token prompt, needle ok, 178 s** |
+
+=> **Goal reached: MTP stays, context = native 262,144, solo speed unchanged (83 t/s), and x4
+aggregate is 253.8 t/s vs the old 167.1.** Trade-off at 262k: the pool holds exactly one
+full-length request (1.00x) — a single 262k conversation occupies the whole cache and others queue;
+short/medium chats still batch normally (262,144 / 8k = ~32 slots).
+
+Current production: `bonsai vllm` = this shape (written into `~/.local/bin/bonsai`).
+`bonsai vllm-max` = MTP off, 311,200-token pool (1.19x), 58 t/s solo — only for extra headroom.

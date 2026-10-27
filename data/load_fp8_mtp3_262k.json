@@ -1,0 +1,52 @@
+{
+  "label": "fp8_mtp3_262k",
+  "solo": {
+    "ttft": 0.1,
+    "total": 4.36,
+    "ctok": 355,
+    "ptok": 28,
+    "tps": 83.3,
+    "err": null,
+    "words": 277
+  },
+  "levels": {
+    "2": {
+      "n": 2,
+      "wall_s": 6.7,
+      "total_ctok": 700,
+      "aggregate_tps": 104.5,
+      "per_stream_tps": [
+        70.4,
+        74.4
+      ],
+      "ttft_s": [
+        1.42,
+        1.99
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    },
+    "4": {
+      "n": 4,
+      "wall_s": 5.58,
+      "total_ctok": 1417,
+      "aggregate_tps": 253.8,
+      "per_stream_tps": [
+        67.2,
+        67.3,
+        67.3,
+        67.3
+      ],
+      "ttft_s": [
+        0.26,
+        0.29,
+        0.29,
+        0.29
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    }
+  }
+}

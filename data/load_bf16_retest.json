@@ -1,0 +1,52 @@
+{
+  "label": "bf16_retest",
+  "solo": {
+    "ttft": 0.39,
+    "total": 4.58,
+    "ctok": 348,
+    "ptok": 28,
+    "tps": 83.1,
+    "err": null,
+    "words": 271
+  },
+  "levels": {
+    "2": {
+      "n": 2,
+      "wall_s": 5.36,
+      "total_ctok": 696,
+      "aggregate_tps": 129.8,
+      "per_stream_tps": [
+        68.7,
+        68.7
+      ],
+      "ttft_s": [
+        0.3,
+        0.3
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    },
+    "4": {
+      "n": 4,
+      "wall_s": 8.38,
+      "total_ctok": 1400,
+      "aggregate_tps": 167.1,
+      "per_stream_tps": [
+        43.0,
+        43.0,
+        43.0,
+        43.0
+      ],
+      "ttft_s": [
+        0.24,
+        0.24,
+        0.24,
+        0.24
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "label": "fp8_mtp3_2x60k",
+  "n": 2,
+  "target_tokens": 60000,
+  "wall_s": 80.3,
+  "total_prompt_tokens": 114118,
+  "total_completion_tokens": 18,
+  "aggregate_decode_tps": 0.2,
+  "errors": [],
+  "needles_ok": 2,
+  "streams": [
+    {
+      "stream": 1,
+      "ttft": 80.3,
+      "total": 80.3,
+      "ptok": 57059,
+      "ctok": 9,
+      "tps": null,
+      "needle_ok": true,
+      "out_tail": "ZEBRA-4471",
+      "err": null
+    },
+    {
+      "stream": 2,
+      "ttft": 50.4,
+      "total": 67.5,
+      "ptok": 57059,
+      "ctok": 9,
+      "tps": 0.5,
+      "needle_ok": true,
+      "out_tail": "ZEBRA-4472",
+      "err": null
+    }
+  ]
+}

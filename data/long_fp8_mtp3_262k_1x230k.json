@@ -1,0 +1,24 @@
+{
+  "label": "fp8_mtp3_262k_1x230k",
+  "n": 1,
+  "target_tokens": 230000,
+  "wall_s": 178.3,
+  "total_prompt_tokens": 218559,
+  "total_completion_tokens": 9,
+  "aggregate_decode_tps": 0.1,
+  "errors": [],
+  "needles_ok": 1,
+  "streams": [
+    {
+      "stream": 1,
+      "ttft": 178.2,
+      "total": 178.3,
+      "ptok": 218559,
+      "ctok": 9,
+      "tps": null,
+      "needle_ok": true,
+      "out_tail": "ZEBRA-4471",
+      "err": null
+    }
+  ]
+}

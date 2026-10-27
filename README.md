@@ -5,18 +5,26 @@ on one 24 GB card — max context, KV-cache trade-offs, speed, concurrency, and 
 failure modes we hit on Ampere.
 
 - 📄 **Read the article:** [`article.md`](article.md)
+- 🗓 **How we got here, day by day:** [`TIMELINE.md`](TIMELINE.md)
 - 🧾 **Attribution:** [`CREDITS.md`](CREDITS.md)
 - 📊 **Lab notebook + raw results:** [`data/RESULTS.md`](data/RESULTS.md), [`data/`](data/)
 - 🧪 **Benchmark harnesses:** [`scripts/`](scripts/)
 
 ## Headline numbers
 
-| | llama.cpp (q8_0 KV) | vLLM (bf16 KV) |
-|---|---|---|
-| max context | 262,144 | 114,688 |
-| VRAM | 19.9 GB | 22.5 GB |
-| decode @38k, long output | 60.7 tok/s | 29.7 tok/s |
-| 2 concurrent long requests | 133 s | 39 s |
+| | llama.cpp (q8_0 KV) | vLLM (bf16 KV) | vLLM final (fp8 KV + MTP n=3) |
+|---|---|---|---|
+| max context | 262,144 | 114,688 | **262,144** |
+| KV pool | 262k shared | 119,553 tokens | 262,144 tokens (1.00×) |
+| VRAM | 19.9 GB | 22.5 GB | 23.5 GB |
+| decode @38k, long output | 60.7 tok/s | 29.7 tok/s | not re-measured |
+| 4 concurrent short streams | — | 167 tok/s agg | **253.8 tok/s agg** |
+| solo decode, short ctx | 84 tok/s | 84 tok/s | 83.3 tok/s |
+
+**2026-10-27 update:** vLLM now reaches the native 262k context with 8-bit KV *and*
+speculative decoding on. The earlier "fp8 KV crashes under load" result was a
+`num_speculative_tokens: 7` problem, not an fp8 problem. Details in
+[`article.md`](article.md) → Part 4 and the full path in [`TIMELINE.md`](TIMELINE.md).
 
 ## Status
 
