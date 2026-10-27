@@ -84,7 +84,7 @@ per token vs llama's q8_0 KV. Short/medium speed is identical.
 
 # Weight-precision wall, retest (2026-10-27) — "can vLLM do anything but 16-bit?"
 
-Man's requirement for this round: 2 concurrent OK, 4 concurrent = happy, 8 not needed.
+Manvel's requirement for this round: 2 concurrent OK, 4 concurrent = happy, 8 not needed.
 
 ## What the engine actually runs (verified in the boot log, not computed)
 - Checkpoint: `fraserprice/Ternary-Bonsai-2-27B-vllm`, `quantization_config.quant_method=prism_ternary`,
@@ -142,7 +142,7 @@ state + `docker logs`, never by the health endpoint. Logs kept: `*_logs.txt` nex
 > trigger to the draft depth: `num_speculative_tokens: 7` crashed, `3` is stable — so
 > MTP was kept after all. Use the FINAL config.
 
-Man's real ask: more context in 24 GB, ideally 8-bit KV. The fp8 wall above was NOT fp8 — it was
+The goal: more context in 24 GB, ideally 8-bit KV. The fp8 wall above was NOT fp8 — it was
 the image's baked-in **MTP speculative decoding** (`--speculative-config {"method":"mtp",
 "num_speculative_tokens":7}` in the image ENTRYPOINT). Removing it (override `--entrypoint vllm`
 and pass `serve ... ` yourself, no spec flag) makes fp8 KV + FULL CUDA graphs work.

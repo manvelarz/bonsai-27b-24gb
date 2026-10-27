@@ -3,7 +3,7 @@
 # Boot-only sweep: launch, read the engine's own "GPU KV cache size" line, kill.
 set -u
 IMG=fraserpricee/bonsai-vllm:20260918
-OUT=/home/manvel/.config/llm-ops/ab_tests/sweep_seqs.txt
+OUT=ab_tests/sweep_seqs.txt
 : > "$OUT"
 
 run_cfg() {                       # $1=label  $2..=extra args
