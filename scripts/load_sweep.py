@@ -6,12 +6,13 @@ Per level: wall time, aggregate t/s, per-stream avg t/s, error count.
 Also one solo reference call + server health check after each level.
 Usage: python3 load_sweep.py <label> [2,4]
 """
-import json, sys, time, urllib.request, pathlib
+import json, sys, time, urllib.request, pathlib, os
 from concurrent.futures import ThreadPoolExecutor
 
 LABEL = sys.argv[1] if len(sys.argv) > 1 else "run"
 LEVELS = [int(x) for x in (sys.argv[2] if len(sys.argv) > 2 else "2,4").split(",")]
-URL = "http://127.0.0.1:8000/v1/chat/completions"
+PORT = os.environ.get("BONSAI_PORT", "8000")
+URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"
 MODEL = "Bonsai-2-27B"
 OUT = pathlib.Path(__file__).parent
 
@@ -62,7 +63,7 @@ def stream_call(prompt, max_tokens=400, timeout=600):
 
 def health():
     try:
-        with urllib.request.urlopen("http://127.0.0.1:8000/v1/models", timeout=5) as r:
+        with urllib.request.urlopen(f"http://127.0.0.1:{PORT}/v1/models", timeout=5) as r:
             return r.status
     except Exception as e:
         return f"DOWN: {e}"

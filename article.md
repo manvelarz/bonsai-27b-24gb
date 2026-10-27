@@ -17,7 +17,9 @@ described, not estimated. Raw outputs are in [`data/`](data/) and the test scrip
 | decode, short ctx | 84 tok/s | 84 tok/s | **83.3 tok/s** |
 | decode, 38k ctx, long output | 60.7 tok/s | 29.7 tok/s | **67.0 tok/s** |
 | 2 concurrent long requests | 133 s (2×40k) | **39 s** (2×38k) | 80.3 s (2×57k) |
-| 4 concurrent short streams | — | 167 tok/s agg | **253.8 tok/s agg** |
+| 4 concurrent short streams | 64.1 tok/s agg | 167 tok/s agg | **253.8 tok/s agg** |
+| TTFT at a ~200k prompt | 347 s | n/a (114k limit) | **330 s** |
+| quality (30 verifiable prompts) | 26/30 | 26/30 | 28/30 (within noise) |
 | needle recall at depth | ✅ 228k | ✅ 95k | ✅ **218,559 tokens** |
 
 > **Update 2026-10-27 — the "vLLM can't do 8-bit KV" finding below is obsolete.**
@@ -277,6 +279,171 @@ configuration — while 4-stream aggregate rises from 167.1 to **253.8 tok/s**.
   never on the health endpoint alone.
 
 ---
+
+## Part 5 — Does quantized KV cost quality? Measured, not asserted
+
+A memory saving that silently degrades answers is not a saving. So we ran the same
+45 prompts through all three configurations: temperature 0, seed 42, thinking
+disabled, identical chat template, `max_tokens` high enough that nothing was cut.
+Thirty of those prompts have a verifiable answer (a number, a name, a yes/no), which
+is what the scores below use; the rest are open-ended and only compared textually.
+
+| configuration | verifiable answers | accuracy |
+|---|---|---|
+| llama.cpp, q8_0 KV, 262k | 26 / 30 | 87% |
+| vLLM, bf16 KV, 114k | 26 / 30 | 87% |
+| vLLM, fp8 KV + MTP n=3, 262k | 28 / 30 | 93% |
+
+![Bar chart of verifiable-answer accuracy: 26/30 llama.cpp, 26/30 vLLM bf16, 28/30 vLLM fp8, with overlapping Wilson 95% confidence intervals](charts/quality-accuracy.png)
+
+The bars look ordered, the ordering is not real: with n=30 the Wilson 95% intervals
+are roughly 70–95% (26/30) and 79–98% (28/30) — they overlap almost completely. **On
+this suite we cannot distinguish the three configurations.** The two answers that
+separate fp8 from bf16 are one arithmetic slip (`17.5% of 240`: fp8 answered 42, the
+others 36) and one reasoning chain that reached Friday instead of stopping at
+Wednesday. Both are model behaviour, not KV precision.
+
+Textually, the copies are near-identical:
+
+- bf16 vs llama.cpp: mean similarity 0.993, 43 of 45 answers byte-identical
+- bf16 vs fp8: 0.912, 38 of 45 identical
+- fp8 vs llama.cpp: 0.916, 39 of 45 identical
+
+The three prompts everybody failed are more interesting than the ones they got right:
+`'5' + '3'` came back as `8` in all three (it treats it as arithmetic), "a sentence
+about rain without the letter e" produced *"Rain falls on the ground."* in all three
+(there is an `e` in "the"), and the classic mislabelled-boxes puzzle was solved
+correctly by everyone once given room to reason.
+
+**What this does not prove.** Thirty prompts, one seed, no multi-turn, no tool
+calling, no multilingual depth beyond a few translations. It is enough to say "we
+found no quality cost from fp8 KV or q8_0 KV on this model", not enough to say
+"numerically equivalent". Anyone who needs the latter should run MMLU-style evals at
+scale — the harness in `scripts/quality_eval.py` is shaped for exactly that.
+
+## Part 6 — Where the time goes: TTFT, prefill, decode, concurrency
+
+Every point below comes from the same protocol: one filler document, a needle at the
+very end, a 40-token answer, thinking off, and a unique nonce prefix so no prompt can
+hit a cache (see Part 7 — this matters more than it sounds).
+
+| prompt tokens | llama.cpp q8_0 | vLLM bf16 | vLLM fp8 + MTP n=3 |
+|---|---|---|---|
+| ~5k | 4.0 s · 1248 t/s | 4.1 s · 1225 t/s | 4.1 s · 1219 t/s |
+| ~40k | 39.0 s · 1026 t/s | 36.7 s · 1089 t/s | 40.1 s · 998 t/s |
+| ~110k | 140.5 s · 783 t/s | 129.7 s · 848 t/s | 142.1 s · 774 t/s |
+| ~200k | 347.1 s · 576 t/s | — (114k ceiling) | 330.1 s · 606 t/s |
+
+![Two panels: time to first token versus prompt length, and prefill throughput versus prompt length, for llama.cpp q8_0, vLLM bf16 and vLLM fp8](charts/ttft-vs-context.png)
+
+Prefill starts around 1.2k tokens/s for all three and decays to ~600 tokens/s at
+200k tokens — the attention term, not the KV dtype, is what costs you at depth. What
+fp8 buys is not speed at a given length; it is **reaching the length at all**.
+
+Decode is where the configurations genuinely separate:
+
+![Scatter plot of decode throughput versus context length: vLLM fp8 67 t/s and llama.cpp 61 t/s at 38k, vLLM bf16 30 t/s at 38k, vLLM fp8 56 t/s at 105k, llama.cpp 30 t/s at 228k](charts/decode-vs-context.png)
+
+At 38k, bf16 KV decodes at 29.7 t/s while fp8 KV does 67.0 t/s on the same card with
+the same weights — same effect that makes llama.cpp's q8_0 KV fast: half the bytes
+read per token. llama.cpp sits at 60.7 t/s at 38k and falls to 30.3 t/s at 228k.
+
+Concurrency is where vLLM earns its complexity:
+
+![Line chart of aggregate throughput versus concurrent streams: llama.cpp 45 to 64 t/s, vLLM bf16 83 to 167 t/s, vLLM fp8 83 to 254 t/s](charts/throughput-vs-concurrency.png)
+
+llama.cpp barely scales (45.3 → 64.1 t/s) because it processes slots the old way;
+vLLM bf16 reaches 167 t/s at four streams, and fp8 + MTP n=3 reaches 253.8 t/s —
+about 3× the single-stream rate. If you are serving several clients, that difference
+is the whole argument for vLLM.
+
+## Part 7 — Measurement traps (the ones that nearly fooled us)
+
+These are not footnotes. Three of them produced numbers that looked plausible and
+were simply wrong.
+
+**1. Prefix caching silently fakes your prefill numbers.** Our first sweep reported
+36,911 tokens/s at 40k. It was vLLM answering from the prefix cache in 1.1 s. Every
+prompt now begins with a unique `NONCE-<uuid>` so no block can match. If you benchmark
+vLLM without cache-busting, your long-context numbers are fiction.
+
+**2. Short outputs make speculation look faster than the GPU can go.** A 40-token
+probe at 200k reported 291 tokens/s decode. With a 320-token output the same point
+measures **55.5 t/s**. MTP finishes short answers in a couple of draft steps; the
+per-token rate is dominated by the first step. Measure decode with outputs of at
+least a few hundred tokens.
+
+**3. The first request after boot is not representative.** The same 5k prompt measured
+585 t/s cold and 1219 t/s once warm — graph capture and lazy init were still happening.
+We now send a throwaway request before measuring.
+
+**4. The KV pool size changes between boots.** fp8 reported 262,144 tokens on one boot
+and 294,362 on the next (1.00× vs 1.12×); bf16 reported 128,392 and 144,982. Quoting a
+single number implies a precision the allocator does not have — we quote ranges.
+
+**5. Hidden thinking tokens count as completion tokens.** With `--reasoning-parser
+qwen3`, a "32-token answer" was 9 visible tokens plus 23 that were stripped before
+display. Non-streaming clients see a token count that does not match what they read.
+
+**6. The two engines disagree about the tokenizer endpoint.** vLLM's `/tokenize`
+wants `{"prompt": ...}`, llama.cpp's wants `{"content": ...}`; the wrong key returns an
+empty list rather than an error, which is how we got a division by zero instead of a
+measurement.
+
+## Pinned environment
+
+Numbers like these are only reusable if the versions are pinned. This is the exact
+stack behind every measurement above:
+
+- **GPU:** NVIDIA RTX 3090, 24,576 MiB, compute capability 8.6 (Ampere)
+- **Driver / CUDA:** 595.58.03 / CUDA 13.2 (host), CUDA 13.0.2 (container)
+- **vLLM image:** `fraserpricee/bonsai-vllm:20260918`, digest
+  `sha256:a40d14f5eb218d80984d5009a61262668f9665f2f2946b84bd3c0102f1fc85e9`, vLLM 0.25.1
+- **llama.cpp:** build 10709, commit `9a9394a89`, custom build including the Hadamard
+  MTP fix (see Part 2), model `Ternary-Bonsai-2-27B-PQ2_0-MTP-Q8_0.gguf`
+- **vLLM final flags:** `--max-model-len 262144 --max-num-seqs 64
+  --gpu-memory-utilization 0.92 --kv-cache-dtype fp8_e4m3
+  --speculative-config '{"method":"mtp","num_speculative_tokens":3}'
+  --compilation-config '{"cudagraph_capture_sizes":[1,2,4,8,16,32]}'`
+- **llama.cpp flags:** `-c 262144 --parallel 2 --kv-unified -ctk q8_0 -ctv q8_0
+  --flash-attn on --spec-type draft-mtp --spec-draft-n-max 2`
+
+## What we would do differently
+
+- **Measure quality before tuning speed.** We spent two days on KV dtypes with no
+  evidence about what they did to answers. The eval harness took an afternoon and
+  would have framed every earlier decision.
+- **One harness, not five.** `ab_kv_test.py`, `test_max_ctx.py`, `test_vllm_max.py`,
+  `a2a_test.py` and `load_sweep.py` all grew separately and disagreed about units.
+  `ttft_sweep.py` and `quality_eval.py` replace them.
+- **Treat speculative-decoding depth as a first-class parameter.** It caused the
+  crash we blamed on fp8, and it distorts short-output benchmarks.
+- **Write down boot variance from day one.** The KV pool number is not a constant.
+- **Log the config next to the number**, always — half the confusion in our own notes
+  came from tables whose flags were recorded three paragraphs away.
+
+## FAQ
+
+**Will this work on a 4090?** Almost certainly the same shape — same 24 GB, same
+compute capability 8.9 — but we have not measured it, so we do not claim it. The KV
+math is identical; the bandwidth is higher, so decode should be faster.
+
+**And on an A6000 (48 GB)?** Yes, and comfortably: 262k at bf16 KV is ~28.6 GiB, which
+fits with the weights on a 48 GB card without any KV quantization.
+
+**Why not just run a 70B?** A 70B at 4-bit is ~40 GB of weights before any KV cache.
+On 24 GB it does not fit, at any context length.
+
+**Is fp8 KV actually safe?** On this model and this image, under concurrency, with
+MTP at n=3: yes, measured, no degradation we could detect in 45 prompts. Keep bf16 if
+you want zero novelty in the stack and can live with 114k instead of 262k.
+
+**Which should I use for an agent backend?** vLLM: OpenAI-compatible API, 3×
+throughput at four streams, spec decoding on. But be aware we did not test tool
+calling or multi-turn behaviour — that is the obvious next report.
+
+**Can I reproduce all of this?** Yes: `scripts/` has the harnesses, `data/` has the raw
+JSON from every run, and the pinned versions above are the ones that produced them.
 
 ## Decision guide
 

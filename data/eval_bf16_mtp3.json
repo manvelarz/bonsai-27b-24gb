@@ -1,0 +1,367 @@
+{
+  "label": "bf16_mtp3",
+  "base": "http://127.0.0.1:8000/v1",
+  "model": "Bonsai-2-27B",
+  "results": [
+    {
+      "text": "47 * 13 = 611\n96 / 4 = 24\n611 - 24 = 587\n\n587",
+      "ctok": 39,
+      "dt": 0.65,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "36",
+      "ctok": 3,
+      "dt": 0.1,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "80 * 0.75 = 60\n60 * 1.21 = 72.60\n\n72.60",
+      "ctok": 35,
+      "dt": 0.37,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "ctok": 5,
+      "dt": 0.1,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "```python\ndef is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum()]\n    return cleaned == cleaned[::-1]\n```",
+      "ctok": 38,
+      "dt": 0.37,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "ctok": 17,
+      "dt": 0.19,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst) - 1): print(lst[i+1])",
+      "ctok": 18,
+      "dt": 0.23,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "```sql\nSELECT email\nFROM users\nWHERE created_at >= '2025-01-01'\n  AND created_at < '2026-01-01'\nORDER BY created_at DESC;\n```",
+      "ctok": 53,
+      "dt": 0.42,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": 1250.00,\n  \"currency\": \"EUR\"\n}",
+      "ctok": 36,
+      "dt": 0.35,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\"sentiment\": \"negative\", \"confidence\": 0.98}",
+      "ctok": 17,
+      "dt": 0.23,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\n    \"city\": \"Madrid\",\n    \"temp_c\": 21\n  },\n  {\n    \"city\": \"Oslo\",\n    \"temp_c\": 4\n  },\n  {\n    \"city\": \"Lima\",\n    \"temp_c\": 19\n  }\n]",
+      "ctok": 74,
+      "dt": 0.64,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at three in the morning, and no one noticed until breakfast.",
+      "ctok": 17,
+      "dt": 0.28,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi instant\u00e1neamente.",
+      "ctok": 19,
+      "dt": 0.24,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie die Bereitstellung durchf\u00fchren.",
+      "ctok": 14,
+      "dt": 0.22,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the numbers in the latest report.",
+      "ctok": 13,
+      "dt": 0.15,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "The company's quarterly revenue rose 18% to 4.2 million euros due to subscription growth, despite a third consecutive quarter of declining hardware sales.",
+      "ctok": 33,
+      "dt": 0.4,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "The three concrete numbers in the sentence are:\n\n1. **840**\n2. **310**\n3. **0.4**",
+      "ctok": 34,
+      "dt": 0.33,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "27B model needs quantization for 24GB GPU.",
+      "ctok": 15,
+      "dt": 0.28,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "Hello there friend",
+      "ctok": 4,
+      "dt": 0.12,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls on the ground.",
+      "ctok": 7,
+      "dt": 0.12,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Regularly schedule automated backups to ensure data is consistently saved and protected against accidental deletion or hardware failure.\n- Follow the 3-2-1 backup rule, which means keeping three copies of your data, on two different types of storage media, with one copy stored offsite or in the cloud.\n- Periodically test your backup restoration process to verify that the data is intact and recoverable when you actually need it.",
+      "ctok": 88,
+      "dt": 0.98,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "ctok": 5,
+      "dt": 0.12,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "ctok": 3,
+      "dt": 0.1,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "ctok": 11,
+      "dt": 0.2,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "ctok": 2,
+      "dt": 0.14,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "ctok": 5,
+      "dt": 0.12,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes.\n\nThis is a classic example of a syllogism. Since all Bloops are Razzies, and all Razzies are Lazzies, it logically follows that all Bloops are also Lazzies.",
+      "ctok": 47,
+      "dt": 0.59,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "Wednesday",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "Let's break this down step-by-step using logic.\n\n**1. The Setup**\n*   **Box A:** Labeled \"Apples\"\n*   **Box B:** Labeled \"Oranges\"\n*   **Box C:** Labeled \"Mixed\"\n*   **Constraint:** All labels are **wrong**.\n\n**2. The Action**\n*   You pick a fruit from the box labeled **\"Mixed\"** (Box C).\n*   The fruit is an **Apple**.\n\n**3. The Deduction**\n\n*   **Step 1: Determine the contents of Box C (Labeled \"Mixed\").**\n    Since the label \"Mixed\" is wrong, Box C cannot contain a mix of apples and oranges.\n    Since you pulled an **apple** from it, Box C must contain **only apples**.\n    *   *Box C (Labeled \"Mixed\") = Apples*\n\n*   **Step 2: Determine the contents of Box A (Labeled \"Apples\").**\n    We know Box C has all apples. Therefore, the remaining boxes (A and B) must contain the remaining fruits: Oranges and Mixed.\n    The label on Box A is \"Apples\". Since all labels are wrong, Box A **cannot** contain apples.\n    We already established that Box C contains the apples.\n    So, Box A must contain either Oranges or Mixed.\n    \n    Let's look at Box B (Labeled \"Oranges\").\n    The label \"Oranges\" is wrong, so Box B cannot contain only oranges.\n    \n    Let's re-evaluate based on what's left:\n    *   Box C = Apples\n    *   Remaining fruits to place: Oranges and Mixed.\n    *   Remaining boxes: A (Labeled \"Apples\") and B (Labeled \"Oranges\").\n    \n    Box A (Labeled",
+      "ctok": 400,
+      "dt": 3.65,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "ctok": 3,
+      "dt": 0.1,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "ctok": 6,
+      "dt": 0.12,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "ctok": 3,
+      "dt": 0.16,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "ctok": 4,
+      "dt": 0.1,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "ctok": 4,
+      "dt": 0.14,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 0.1,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "ctok": 2,
+      "dt": 0.1,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "ctok": 3,
+      "dt": 0.1,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "ctok": 3,
+      "dt": 0.1,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "ctok": 3,
+      "dt": 0.14,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "Yes.\n\n**Logical Deduction:**\n1.  **Premise 1:** No cats are reptiles. (This means the set of cats and the set of reptiles do not overlap).\n2.  **Premise 2:** All reptiles are animals. (This means the set of reptiles is a subset of the set of animals).\n3.  **Analysis:** The fact that cats are *not* reptiles does not exclude them from being animals. It only excludes them from the specific subset of animals that are reptiles. Since \"animal\" is a broader category that includes mammals, birds, fish, etc., and cats are mammals, they fall under the category of animals.\n\nTherefore, a cat can be an animal.",
+      "ctok": 156,
+      "dt": 1.43,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}

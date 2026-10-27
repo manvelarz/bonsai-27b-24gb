@@ -18,7 +18,9 @@ failure modes we hit on Ampere.
 | KV pool | 262k shared | 119,553 tokens | 262k–294k tokens (1.00–1.12×) |
 | VRAM | 19.9 GB | 22.5 GB | 23.5 GB |
 | decode @38k, long output | 60.7 tok/s | 29.7 tok/s | **67.0 tok/s** |
-| 4 concurrent short streams | — | 167 tok/s agg | **253.8 tok/s agg** |
+| 4 concurrent short streams | 64.1 tok/s agg | 167 tok/s agg | **253.8 tok/s agg** |
+| TTFT at ~200k prompt | 347 s | n/a (114k limit) | **330 s** |
+| quality, 30 verifiable prompts | 26/30 | 26/30 | 28/30 (within noise) |
 | solo decode, short ctx | 84 tok/s | 84 tok/s | 83.3 tok/s |
 
 **2026-10-27 update:** vLLM now reaches the native 262k context with 8-bit KV *and*

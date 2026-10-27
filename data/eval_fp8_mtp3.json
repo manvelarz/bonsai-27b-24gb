@@ -1,0 +1,367 @@
+{
+  "label": "fp8_mtp3",
+  "base": "http://127.0.0.1:8000/v1",
+  "model": "Bonsai-2-27B",
+  "results": [
+    {
+      "text": "47 * 13 = 611\n96 / 4 = 24\n611 - 24 = 587\n\n587",
+      "ctok": 39,
+      "dt": 0.81,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 0.13,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "80 * 0.75 = 60\n60 * 1.21 = 72.60\n\n72.60",
+      "ctok": 35,
+      "dt": 0.4,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "ctok": 5,
+      "dt": 0.11,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.11,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "```python\ndef is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum()]\n    return cleaned == cleaned[::-1]\n```",
+      "ctok": 38,
+      "dt": 0.43,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "ctok": 17,
+      "dt": 0.21,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst) - 1): print(lst[i+1])",
+      "ctok": 18,
+      "dt": 0.25,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "```sql\nSELECT email\nFROM users\nWHERE created_at >= '2025-01-01'\n  AND created_at < '2026-01-01'\nORDER BY created_at DESC;\n```",
+      "ctok": 53,
+      "dt": 0.47,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": 1250.00,\n  \"currency\": \"EUR\"\n}",
+      "ctok": 36,
+      "dt": 0.39,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\"sentiment\": \"negative\", \"confidence\": 0.98}",
+      "ctok": 17,
+      "dt": 0.25,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\n    \"city\": \"Madrid\",\n    \"temp_c\": 21\n  },\n  {\n    \"city\": \"Oslo\",\n    \"temp_c\": 4\n  },\n  {\n    \"city\": \"Lima\",\n    \"temp_c\": 19\n  }\n]",
+      "ctok": 74,
+      "dt": 0.7,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at 3 a.m., and no one noticed until breakfast.",
+      "ctok": 17,
+      "dt": 0.28,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi instant\u00e1neamente.",
+      "ctok": 19,
+      "dt": 0.27,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie die Bereitstellung durchf\u00fchren.",
+      "ctok": 14,
+      "dt": 0.24,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the numbers in the latest report.",
+      "ctok": 13,
+      "dt": 0.16,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "The company's quarterly revenue rose 18% to 4.2 million euros due to subscription growth, despite a third consecutive quarter of declining hardware sales.",
+      "ctok": 33,
+      "dt": 0.44,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "The three concrete numbers in the sentence are:\n\n1. **840**\n2. **310**\n3. **0.4**",
+      "ctok": 34,
+      "dt": 0.36,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "Running 27B model needs quantization on 24GB GPU.",
+      "ctok": 17,
+      "dt": 0.28,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "Hello there friend",
+      "ctok": 4,
+      "dt": 0.13,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls on the ground.",
+      "ctok": 7,
+      "dt": 0.13,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Regularly schedule automated backups to ensure data is consistently saved and protected against accidental deletion or hardware failure.\n- Follow the 3-2-1 backup rule, which means keeping three copies of your data, on two different types of storage media, with one copy stored offsite or in the cloud.\n- Periodically test your backup restoration process to verify that the data is intact and recoverable when you actually need it.",
+      "ctok": 88,
+      "dt": 1.09,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "ctok": 5,
+      "dt": 0.14,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "ctok": 3,
+      "dt": 0.11,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "ctok": 11,
+      "dt": 0.21,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "ctok": 2,
+      "dt": 0.14,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "ctok": 5,
+      "dt": 0.13,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes.\n\nThis is a classic example of a syllogism. If all members of group A (Bloops) are in group B (Razzies), and all members of group B (Razzies) are in group C (Lazzies), then all members of group A must also be in group C. Therefore, all Bloops are Lazzies.",
+      "ctok": 77,
+      "dt": 0.87,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "To determine the day of the week 100 days from now, we can use modular arithmetic since the days of the week repeat every 7 days.\n\n1.  **Identify the starting day:** Wednesday.\n2.  **Calculate the remainder:** Divide the number of days (100) by 7.\n    $$100 \\div 7 = 14 \\text{ with a remainder of } 2$$\n    $$(14 \\times 7 = 98, \\text{ and } 100 - 98 = 2)$$\n3.  **Count forward:** The remainder is 2, which means we need to count 2 days forward from Wednesday.\n    *   1 day from Wednesday is Thursday.\n    *   2 days from Wednesday is Friday.\n\nFriday",
+      "ctok": 180,
+      "dt": 1.67,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "ctok": 2,
+      "dt": 0.11,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "Let's break this down step-by-step using logic.\n\n**1. The Setup**\n*   **Box A:** Labeled \"Apples\"\n*   **Box B:** Labeled \"Oranges\"\n*   **Box C:** Labeled \"Mixed\"\n*   **Constraint:** All labels are **wrong**.\n\n**2. The Action**\n*   You pick a fruit from the box labeled **\"Mixed\"** (Box C).\n*   The fruit is an **Apple**.\n\n**3. The Deduction**\n\n*   **Step 1: Determine the contents of Box C (Labeled \"Mixed\").**\n    *   Since the label \"Mixed\" is wrong, Box C cannot contain a mix of apples and oranges.\n    *   You pulled an apple from it.\n    *   Therefore, Box C must contain **only Apples**.\n\n*   **Step 2: Determine the contents of Box A (Labeled \"Apples\").**\n    *   We know Box C has Apples.\n    *   The label \"Apples\" on Box A is wrong, so Box A cannot contain Apples.\n    *   The remaining fruits are Oranges and Mixed.\n    *   So, Box A is either Oranges or Mixed.\n\n*   **Step 3: Determine the contents of Box B (Labeled \"Oranges\").**\n    *   The label \"Oranges\" on Box B is wrong, so Box B cannot contain Oranges.\n    *   The remaining fruits are Oranges and Mixed.\n    *   So, Box B is either Oranges or Mixed.\n\n*   **Step 4: Finalize the boxes.**\n    *   We have two boxes left to assign: Box A (Labeled Apples) and Box B (Labeled Oranges).\n    *   We have two contents left to assign: Oranges and Mixed",
+      "ctok": 400,
+      "dt": 3.77,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "ctok": 3,
+      "dt": 0.11,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "ctok": 6,
+      "dt": 0.14,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "ctok": 3,
+      "dt": 0.17,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "ctok": 4,
+      "dt": 0.11,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "ctok": 4,
+      "dt": 0.15,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 0.11,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "ctok": 2,
+      "dt": 0.11,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.11,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.11,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "ctok": 2,
+      "dt": 0.11,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "ctok": 3,
+      "dt": 0.11,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "ctok": 3,
+      "dt": 0.11,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "ctok": 3,
+      "dt": 0.15,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "Yes.\n\n**Logical Deduction:**\n1.  **Premise 1:** No cats are reptiles. (This means the set of cats and the set of reptiles do not overlap).\n2.  **Premise 2:** All reptiles are animals. (This means the set of reptiles is a subset of the set of animals).\n3.  **Analysis:** The fact that cats are *not* reptiles does not exclude them from being animals. In fact, in standard biological classification, cats are mammals, and mammals are animals. Even without external knowledge, the premises provided do not state that *only* reptiles are animals, nor do they state that cats are *not* animals. They only define the relationship between cats and reptiles, and reptiles and animals.\n4.  **Conclusion:** Since the premises do not contradict the idea that cats are animals, and in reality they are, the answer is yes.\n\n**Answer:** Yes",
+      "ctok": 202,
+      "dt": 2.21,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}

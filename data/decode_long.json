@@ -1,0 +1,40 @@
+{
+  "note": "decode throughput measured with long outputs (>=300 tokens). Short 40-token probes overstate it because MTP speculation finishes in a couple of steps.",
+  "points": [
+    {
+      "config": "llama_q8_0",
+      "ctx": 38078,
+      "decode_tps": 60.7,
+      "ctok": 558,
+      "source": "a2a_test.py"
+    },
+    {
+      "config": "llama_q8_0",
+      "ctx": 228100,
+      "decode_tps": 30.3,
+      "ctok": 300,
+      "source": "test_max_ctx.py"
+    },
+    {
+      "config": "bf16_mtp3",
+      "ctx": 38078,
+      "decode_tps": 29.7,
+      "ctok": 634,
+      "source": "a2a_test.py"
+    },
+    {
+      "config": "fp8_mtp3",
+      "ctx": 38078,
+      "decode_tps": 67.0,
+      "ctok": 467,
+      "source": "a2a_test.py (final config)"
+    },
+    {
+      "config": "fp8_mtp3",
+      "ctx": 105472,
+      "decode_tps": 55.5,
+      "ctok": 320,
+      "source": "long-output probe 2026-10-28"
+    }
+  ]
+}

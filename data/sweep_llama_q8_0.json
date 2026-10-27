@@ -1,0 +1,42 @@
+{
+  "label": "llama_q8_0",
+  "port": "8080",
+  "points": [
+    {
+      "target": 5000,
+      "prompt_tokens": 4991,
+      "ttft_s": 4.0,
+      "prefill_tps": 1247.8,
+      "decode_tps": 80.39,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 40000,
+      "prompt_tokens": 39996,
+      "ttft_s": 38.96,
+      "prefill_tps": 1026.5,
+      "decode_tps": 76.74,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 110000,
+      "prompt_tokens": 110007,
+      "ttft_s": 140.54,
+      "prefill_tps": 782.7,
+      "decode_tps": 55.05,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 200000,
+      "prompt_tokens": 200009,
+      "ttft_s": 347.12,
+      "prefill_tps": 576.2,
+      "decode_tps": 40.51,
+      "ctok": 9,
+      "needle_ok": true
+    }
+  ]
+}

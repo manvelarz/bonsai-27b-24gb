@@ -1,0 +1,52 @@
+{
+  "label": "llama_q8_0",
+  "solo": {
+    "ttft": 0.35,
+    "total": 8.17,
+    "ctok": 354,
+    "ptok": 28,
+    "tps": 45.3,
+    "err": null,
+    "words": 276
+  },
+  "levels": {
+    "2": {
+      "n": 2,
+      "wall_s": 15.76,
+      "total_ctok": 708,
+      "aggregate_tps": 44.9,
+      "per_stream_tps": [
+        45.7,
+        47.9
+      ],
+      "ttft_s": [
+        0.3,
+        8.01
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    },
+    "4": {
+      "n": 4,
+      "wall_s": 22.13,
+      "total_ctok": 1418,
+      "aggregate_tps": 64.1,
+      "per_stream_tps": [
+        43.7,
+        44.0,
+        48.9,
+        69.7
+      ],
+      "ttft_s": [
+        0.38,
+        11.82,
+        17.05,
+        8.56
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    }
+  }
+}

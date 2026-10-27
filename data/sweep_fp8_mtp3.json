@@ -1,0 +1,42 @@
+{
+  "label": "fp8_mtp3",
+  "port": "8000",
+  "points": [
+    {
+      "target": 5000,
+      "prompt_tokens": 4989,
+      "ttft_s": 4.09,
+      "prefill_tps": 1218.6,
+      "decode_tps": 167.55,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 40000,
+      "prompt_tokens": 39996,
+      "ttft_s": 40.06,
+      "prefill_tps": 998.3,
+      "decode_tps": 178.89,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 110000,
+      "prompt_tokens": 110009,
+      "ttft_s": 142.14,
+      "prefill_tps": 773.9,
+      "decode_tps": 222.44,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 200000,
+      "prompt_tokens": 200006,
+      "ttft_s": 330.09,
+      "prefill_tps": 605.9,
+      "decode_tps": 291.41,
+      "ctok": 9,
+      "needle_ok": true
+    }
+  ]
+}

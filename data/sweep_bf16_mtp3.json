@@ -1,0 +1,33 @@
+{
+  "label": "bf16_mtp3",
+  "port": "8000",
+  "points": [
+    {
+      "target": 5000,
+      "prompt_tokens": 4988,
+      "ttft_s": 4.07,
+      "prefill_tps": 1225.0,
+      "decode_tps": 147.59,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 40000,
+      "prompt_tokens": 39995,
+      "ttft_s": 36.72,
+      "prefill_tps": 1089.2,
+      "decode_tps": 61.23,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 110000,
+      "prompt_tokens": 110008,
+      "ttft_s": 129.7,
+      "prefill_tps": 848.2,
+      "decode_tps": 28.59,
+      "ctok": 9,
+      "needle_ok": true
+    }
+  ]
+}
