@@ -1,0 +1,98 @@
+{
+  "label": "bf16",
+  "prompts": [
+    {
+      "name": "fact",
+      "output": "\n\nCanberra is the capital of Australia.",
+      "error": null,
+      "ttft_s": 0.519,
+      "total_s": 0.55,
+      "completion_tokens": 49,
+      "decode_tps": null,
+      "stream_chunks": 2,
+      "prompt_tokens": 62
+    },
+    {
+      "name": "math",
+      "output": "\n\n391",
+      "error": null,
+      "ttft_s": 0.583,
+      "total_s": 0.58,
+      "completion_tokens": 53,
+      "decode_tps": null,
+      "stream_chunks": 1,
+      "prompt_tokens": 68
+    },
+    {
+      "name": "logic",
+      "output": "\n\nYes. If every bloop is a razzie and every razzie is a lazy, then every bloop is a lazy.",
+      "error": null,
+      "ttft_s": 0.938,
+      "total_s": 1.33,
+      "completion_tokens": 101,
+      "decode_tps": 260.5,
+      "stream_chunks": 14,
+      "prompt_tokens": 87
+    },
+    {
+      "name": "reason",
+      "output": "\n\nLet \\(c\\) be chickens: \\(2c + 4(30-c) = 86 \\Rightarrow c = 17\\).",
+      "error": null,
+      "ttft_s": 2.034,
+      "total_s": 2.24,
+      "completion_tokens": 214,
+      "decode_tps": 1019.7,
+      "stream_chunks": 7,
+      "prompt_tokens": 79
+    },
+    {
+      "name": "creative",
+      "output": "\n\nThe sea breathes in silver light,\nwhere waves unfold their endless song,\nand salt winds carry moonlit flight\nacross the deep and ancient long.",
+      "error": null,
+      "ttft_s": 0.483,
+      "total_s": 0.99,
+      "completion_tokens": 70,
+      "decode_tps": 138.6,
+      "stream_chunks": 17,
+      "prompt_tokens": 62
+    },
+    {
+      "name": "instruction",
+      "output": "",
+      "error": null,
+      "ttft_s": null,
+      "total_s": 3.77,
+      "completion_tokens": 300,
+      "decode_tps": null,
+      "stream_chunks": 0,
+      "prompt_tokens": 68
+    },
+    {
+      "name": "needle_long",
+      "output": "\n\nZEBRA-4471",
+      "error": null,
+      "ttft_s": 4.314,
+      "total_s": 4.35,
+      "completion_tokens": 39,
+      "decode_tps": null,
+      "stream_chunks": 2,
+      "prompt_tokens": 5046
+    }
+  ],
+  "load": {
+    "4": {
+      "wall_s": 6.79,
+      "total_completion_tokens": 1200,
+      "aggregate_tps": 176.7,
+      "errors": 0,
+      "avg_ttft": 0.0
+    },
+    "8": {
+      "wall_s": 15.49,
+      "total_completion_tokens": 2400,
+      "aggregate_tps": 154.9,
+      "errors": 0,
+      "avg_ttft": 0.0
+    }
+  }
+}

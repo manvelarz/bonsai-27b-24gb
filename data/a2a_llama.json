@@ -1,0 +1,29 @@
+{
+  "short": {
+    "ttft": 0.11,
+    "total": 0.2,
+    "ptok": 22,
+    "ctok": 8,
+    "tps": null,
+    "words": 6,
+    "err": null
+  },
+  "medium": {
+    "ttft": 0.29,
+    "total": 5.2,
+    "ptok": 29,
+    "ctok": 414,
+    "tps": 84.1,
+    "words": 330,
+    "err": null
+  },
+  "long_ctx_long_out": {
+    "ttft": 35.1,
+    "total": 44.3,
+    "ptok": 38078,
+    "ctok": 558,
+    "tps": 60.7,
+    "words": 461,
+    "err": null
+  }
+}
