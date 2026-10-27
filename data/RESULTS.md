@@ -203,3 +203,20 @@ short/medium chats still batch normally (262,144 / 8k = ~32 slots).
 
 Current production: `bonsai vllm` = this shape (written into `~/.local/bin/bonsai`).
 `bonsai vllm-max` = MTP off, 311,200-token pool (1.19x), 58 t/s solo — only for extra headroom.
+
+## 2026-10-28 — closing the last gap: 38k ctx + long output on the FINAL config
+Ran `a2a_test.py vllm` against `bonsai vllm` (fp8 KV + MTP n=3, max-len 262,144, graphs on).
+Boot reported KV pool **294,362 tokens (1.12x)** this time (previous boot: 262,144 / 1.00x —
+see boot variance note in the article).
+
+| test | llama.cpp (q8_0, 262k) | vLLM bf16 (114k) | **vLLM final (fp8 + MTP n=3)** |
+|---|---|---|---|
+| short "Paris" | 8 tok, TTFT 0.11 s | 8 tok, TTFT 0.09 s | 8 tok, TTFT 0.70 s (cold) |
+| ~350–420 tok answer | 414 tok, 84.1 t/s | 421 tok, 83.6 t/s | 349 tok, **91.1 t/s** |
+| 38k prompt + long output | TTFT 35.1 s, 558 tok, 60.7 t/s | TTFT 34.1 s, 634 tok, 29.7 t/s | TTFT 38.2 s (~998 t/s prefill), 467 tok, **67.0 t/s** |
+| needle at end | ✅ | ✅ | ✅ ZEBRA-4471 |
+
+=> Correction of record: the final vLLM shape is NOT slower than llama.cpp at 38k — it is
+slightly faster (67.0 vs 60.7 t/s) because fp8 KV halves the per-token KV bytes, the same
+effect that made llama.cpp's q8_0 win over bf16. The earlier "vLLM is 2x slower at long
+context" applied to the **bf16-KV** build only.

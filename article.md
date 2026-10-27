@@ -10,12 +10,12 @@ described, not estimated. Raw outputs are in [`data/`](data/) and the test scrip
 
 | | llama.cpp (GGUF, q8_0 KV) | vLLM (bf16 KV) | vLLM **final** (fp8 KV + MTP n=3) |
 |---|---|---|---|
-| max context / request | **262,144** (native) | 114,688 (ceiling) | **262,144** (native) |
-| KV capacity | 262k shared pool | 119,553 tokens | 262,144 tokens (1.00×) |
+| max context / request | **262,144** (native) | 114,688 (bf16 KV limit) | **262,144** (native) |
+| KV capacity | 262k shared pool | 119,553 tokens | 262k–294k tokens (1.00–1.12×, boot variance) |
 | VRAM | 19.9 GB | 22.5 GB | 23.5 GB |
 | prefill speed | ~1,085 tok/s | ~1,118 tok/s | **~1,227 tok/s** (218k prompt in 178 s) |
 | decode, short ctx | 84 tok/s | 84 tok/s | **83.3 tok/s** |
-| decode, 38k ctx, long output | **60.7 tok/s** | 29.7 tok/s | not re-measured |
+| decode, 38k ctx, long output | 60.7 tok/s | 29.7 tok/s | **67.0 tok/s** |
 | 2 concurrent long requests | 133 s (2×40k) | **39 s** (2×38k) | 80.3 s (2×57k) |
 | 4 concurrent short streams | — | 167 tok/s agg | **253.8 tok/s agg** |
 | needle recall at depth | ✅ 228k | ✅ 95k | ✅ **218,559 tokens** |
@@ -92,8 +92,10 @@ Verified limits on this card (bf16 KV):
 
 Note the counter-intuitive detail: **bigger max-model-len does not shrink KV
 capacity** (it went *up*: 94k → 119k tokens), because vLLM's profiling reserves
-less for CUDA graphs at larger sequence limits. 114,688 is the practical ceiling;
-beyond it you exceed the KV pool.
+less for CUDA graphs at larger sequence limits. 114,688 is the practical ceiling **for
+16-bit KV only** — with fp8 KV the same card reaches the full native 262,144 (Part 4), so
+this limit is a property of the KV dtype, not of vLLM or the GPU. Beyond it you exceed
+the KV pool.
 
 ### Things that do NOT work (with evidence)
 
