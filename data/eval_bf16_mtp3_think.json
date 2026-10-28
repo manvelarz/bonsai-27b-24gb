@@ -1,0 +1,457 @@
+{
+  "label": "bf16_mtp3_think",
+  "base": "http://127.0.0.1:8000/v1",
+  "model": "Bonsai-2-27B",
+  "results": [
+    {
+      "text": "587",
+      "content": "587",
+      "reasoning_chars": 0,
+      "ctok": 98,
+      "dt": 1.11,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "42",
+      "content": "42",
+      "reasoning_chars": 0,
+      "ctok": 126,
+      "dt": 1.09,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "72.60",
+      "content": "72.60",
+      "reasoning_chars": 0,
+      "ctok": 89,
+      "dt": 0.97,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "content": "5050",
+      "reasoning_chars": 0,
+      "ctok": 52,
+      "dt": 0.57,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "content": "8",
+      "reasoning_chars": 0,
+      "ctok": 58,
+      "dt": 0.67,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "```python\ndef is_palindrome(s):\n    cleaned = [ch.lower() for ch in s if ch.isalnum()]\n    return cleaned == cleaned[::-1]\n```",
+      "content": "```python\ndef is_palindrome(s):\n    cleaned = [ch.lower() for ch in s if ch.isalnum()]\n    return cleaned == cleaned[::-1]\n```",
+      "reasoning_chars": 0,
+      "ctok": 145,
+      "dt": 1.48,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "content": "[0, 1, 4, 9, 16]",
+      "reasoning_chars": 0,
+      "ctok": 103,
+      "dt": 1.05,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst)-1): print(lst[i+1])",
+      "content": "for i in range(len(lst)-1): print(lst[i+1])",
+      "reasoning_chars": 0,
+      "ctok": 295,
+      "dt": 3.13,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "SELECT email\nFROM users\nWHERE created_at >= '2025-01-01'\n  AND created_at < '2026-01-01'\nORDER BY created_at DESC;",
+      "content": "SELECT email\nFROM users\nWHERE created_at >= '2025-01-01'\n  AND created_at < '2026-01-01'\nORDER BY created_at DESC;",
+      "reasoning_chars": 0,
+      "ctok": 194,
+      "dt": 1.57,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": 1250.00,\n  \"currency\": \"EUR\"\n}",
+      "content": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": 1250.00,\n  \"currency\": \"EUR\"\n}",
+      "reasoning_chars": 0,
+      "ctok": 322,
+      "dt": 3.06,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\"sentiment\": \"negative\", \"confidence\": 0.98}",
+      "content": "{\"sentiment\": \"negative\", \"confidence\": 0.98}",
+      "reasoning_chars": 0,
+      "ctok": 80,
+      "dt": 0.84,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\n    \"city\": \"Madrid\",\n    \"temp_c\": 21\n  },\n  {\n    \"city\": \"Oslo\",\n    \"temp_c\": 4\n  },\n  {\n    \"city\": \"Lima\",\n    \"temp_c\": 19\n  }\n]",
+      "content": "[\n  {\n    \"city\": \"Madrid\",\n    \"temp_c\": 21\n  },\n  {\n    \"city\": \"Oslo\",\n    \"temp_c\": 4\n  },\n  {\n    \"city\": \"Lima\",\n    \"temp_c\": 19\n  }\n]",
+      "reasoning_chars": 0,
+      "ctok": 189,
+      "dt": 1.59,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at 3 a.m., and nobody noticed until breakfast.",
+      "content": "The server crashed at 3 a.m., and nobody noticed until breakfast.",
+      "reasoning_chars": 0,
+      "ctok": 172,
+      "dt": 1.7,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi al instante.",
+      "content": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi al instante.",
+      "reasoning_chars": 0,
+      "ctok": 736,
+      "dt": 7.63,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie ihn ausrollen.",
+      "content": "Bitte starten Sie den Dienst neu, bevor Sie ihn ausrollen.",
+      "reasoning_chars": 0,
+      "ctok": 285,
+      "dt": 2.77,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the numbers in the latest report.",
+      "content": "I need you to review the numbers in the latest report.",
+      "reasoning_chars": 0,
+      "ctok": 140,
+      "dt": 1.43,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "The company\u2019s quarterly revenue rose 18% year over year to 4.2 million euros, led by subscriptions, even as hardware sales fell for a third straight quarter.",
+      "content": "The company\u2019s quarterly revenue rose 18% year over year to 4.2 million euros, led by subscriptions, even as hardware sales fell for a third straight quarter.",
+      "reasoning_chars": 0,
+      "ctok": 161,
+      "dt": 1.53,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "840, 310, 0.4",
+      "content": "840, 310, 0.4",
+      "reasoning_chars": 0,
+      "ctok": 106,
+      "dt": 1.0,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "27B needs quantized weights and KV cache on 24GB GPU.",
+      "content": "27B needs quantized weights and KV cache on 24GB GPU.",
+      "reasoning_chars": 0,
+      "ctok": 430,
+      "dt": 3.63,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "hello there friend",
+      "content": "hello there friend",
+      "reasoning_chars": 0,
+      "ctok": 63,
+      "dt": 0.76,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls on a hill.",
+      "content": "Rain falls on a hill.",
+      "reasoning_chars": 0,
+      "ctok": 227,
+      "dt": 2.49,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Backups protect data from loss due to hardware failure, accidental deletion, or cyberattacks.\n- Regular backups ensure you can restore files to a known good state and maintain business continuity.\n- Storing backups in separate locations, such as cloud and offline storage, improves resilience against disasters.",
+      "content": "- Backups protect data from loss due to hardware failure, accidental deletion, or cyberattacks.\n- Regular backups ensure you can restore files to a known good state and maintain business continuity.\n- Storing backups in separate locations, such as cloud and offline storage, improves resilience against disasters.",
+      "reasoning_chars": 0,
+      "ctok": 107,
+      "dt": 1.27,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "content": "LISBON",
+      "reasoning_chars": 0,
+      "ctok": 43,
+      "dt": 0.47,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "content": "Canberra",
+      "reasoning_chars": 0,
+      "ctok": 33,
+      "dt": 0.38,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "content": "1073741824",
+      "reasoning_chars": 0,
+      "ctok": 73,
+      "dt": 0.69,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "content": "1",
+      "reasoning_chars": 0,
+      "ctok": 91,
+      "dt": 1.0,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "content": "1989",
+      "reasoning_chars": 0,
+      "ctok": 47,
+      "dt": 0.47,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes",
+      "content": "Yes",
+      "reasoning_chars": 0,
+      "ctok": 51,
+      "dt": 0.67,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "Friday",
+      "content": "Friday",
+      "reasoning_chars": 0,
+      "ctok": 71,
+      "dt": 0.84,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "content": "A",
+      "reasoning_chars": 0,
+      "ctok": 42,
+      "dt": 0.6,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "The box labeled **\u201capples\u201d** contains **oranges**.\n\nReasoning:\n\n- The box labeled **\u201cmixed\u201d** is wrong, so it is not mixed.\n- You picked an apple from it, so it must be the **all-apples** box.\n- That leaves **oranges** and **mixed** for the other two boxes.\n- The box labeled **\u201coranges\u201d** is wrong, so it cannot be oranges; it must be **mixed**.\n- Therefore, the box labeled **\u201capples\u201d** must be **oranges**.",
+      "content": "The box labeled **\u201capples\u201d** contains **oranges**.\n\nReasoning:\n\n- The box labeled **\u201cmixed\u201d** is wrong, so it is not mixed.\n- You picked an apple from it, so it must be the **all-apples** box.\n- That leaves **oranges** and **mixed** for the other two boxes.\n- The box labeled **\u201coranges\u201d** is wrong, so it cannot be oranges; it must be **mixed**.\n- Therefore, the box labeled **\u201capples\u201d** must be **oranges**.",
+      "reasoning_chars": 0,
+      "ctok": 442,
+      "dt": 4.39,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "content": "27",
+      "reasoning_chars": 0,
+      "ctok": 50,
+      "dt": 0.67,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "content": "0.875",
+      "reasoning_chars": 0,
+      "ctok": 63,
+      "dt": 0.77,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "content": "19",
+      "reasoning_chars": 0,
+      "ctok": 78,
+      "dt": 0.86,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "content": "165",
+      "reasoning_chars": 0,
+      "ctok": 54,
+      "dt": 0.63,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "content": "150",
+      "reasoning_chars": 0,
+      "ctok": 84,
+      "dt": 0.91,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "content": "42",
+      "reasoning_chars": 0,
+      "ctok": 87,
+      "dt": 0.91,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "content": "3",
+      "reasoning_chars": 0,
+      "ctok": 59,
+      "dt": 0.82,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "53",
+      "content": "53",
+      "reasoning_chars": 0,
+      "ctok": 75,
+      "dt": 0.84,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "content": "8",
+      "reasoning_chars": 0,
+      "ctok": 32,
+      "dt": 0.38,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "content": "Au",
+      "reasoning_chars": 0,
+      "ctok": 37,
+      "dt": 0.47,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "content": "Mercury",
+      "reasoning_chars": 0,
+      "ctok": 34,
+      "dt": 0.36,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "content": "90",
+      "reasoning_chars": 0,
+      "ctok": 34,
+      "dt": 0.38,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "content": "80",
+      "reasoning_chars": 0,
+      "ctok": 49,
+      "dt": 0.65,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "Yes.",
+      "content": "Yes.",
+      "reasoning_chars": 0,
+      "ctok": 154,
+      "dt": 1.83,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}

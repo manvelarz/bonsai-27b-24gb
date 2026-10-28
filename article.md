@@ -20,7 +20,7 @@ described, not estimated. Raw outputs are in [`data/`](data/) and the test scrip
 | 4 concurrent short streams | 64.1 tok/s agg | 167 tok/s agg | **253.8 tok/s agg** |
 | TTFT at a ~200k prompt | 347 s | n/a (114k limit) | **330 s** |
 | quality, thinking off (30 verifiable) | 26/30 | 26/30 | 28/30 (within noise) |
-| quality, thinking on (30 verifiable) | not measured | not measured | **30/30** |
+| quality, thinking on (30 verifiable) | **30/30** | **30/30** | **30/30** |
 | Qwen3.8-27B original, same suite | — | — | 28/30 off · **30/30 on** (Part 8) |
 | needle recall at depth | ✅ 228k | ✅ 95k | ✅ **218,559 tokens** |
 
@@ -508,8 +508,8 @@ of the whole matrix: **$0.10**, zero errors, provider verified in every response
 | Qwen3.8-27B **bf16** (DeepInfra) | 28/30 | **30/30** |
 | Qwen3.8-27B **fp8** (Chutes) | 28/30 | **30/30** |
 | **Ternary 2-bit**, local, fp8 KV | 28/30 | **30/30** |
-| Ternary 2-bit, local, bf16 KV | 26/30 | not measured |
-| Ternary 2-bit, llama.cpp q8_0 | 26/30 | not measured |
+| Ternary 2-bit, local, bf16 KV | 26/30 | **30/30** |
+| Ternary 2-bit, llama.cpp q8_0 | 26/30 | **30/30** |
 
 **Two findings, and they point in opposite directions from what we assumed.**
 
@@ -517,10 +517,22 @@ First, **the compression is invisible on this suite.** The 7.1 GB ternary build 
 exactly what the bf16 original scores — at both thinking settings. Whatever the 2-bit
 weights cost, it is not measurable in 30 verifiable answers.
 
-Second, **thinking mode is the entire difference**, and it is worth exactly the two
-answers the ternary build was missing: 28/30 → 30/30, on the original *and* on the
-compressed model. It is also not free: `a1` went from 39 to 98 completion tokens, so
-roughly 2.5× the decode work, which at 262k context is a real bill.
+Second, **thinking mode is the entire difference** — every configuration reaches
+**30/30** with it on: the bf16 original, the fp8 original, and all three local variants
+(fp8 KV, bf16 KV, llama.cpp q8_0). Not one of the five loses a verifiable answer.
+
+It is also not free. Completion tokens over the whole suite:
+
+| configuration | thinking off | thinking on | factor |
+|---|---|---|---|
+| local fp8 KV | 1,510 | 5,936 | 3.9× |
+| local bf16 KV | 1,254 | 5,961 | 4.8× |
+| llama.cpp q8_0 | 1,293 | 5,579 | 4.3× |
+
+So the honest framing is not "the ternary model is worse" but "**thinking costs ~4×
+the output tokens and buys the last 2–4 answers**", and that price is identical for the
+compressed model and for the original. At 262k context, 4× the decode work is the
+actual reason to leave it off — not accuracy.
 
 The four disagreements, all of them, when both run without thinking:
 
@@ -535,6 +547,12 @@ The four disagreements, all of them, when both run without thinking:
 Net zero. The pattern is not "compressed model is dumber" — it is "without thinking,
 the original takes shortcuts and slips on arithmetic, while the ternary build writes
 its work out and slips on strict string constraints instead".
+
+**A last asymmetry worth knowing:** llama.cpp returns the reasoning in a separate
+`reasoning_content` field for all 45 prompts; both vLLM configurations return it empty
+for all 45, so the chain is generated and thrown away. Same answers, different
+observability — if you want to audit *how* the model reaches an answer, that is an
+argument for llama.cpp that has nothing to do with speed.
 
 **Serving precision is a wash too.** bf16 and fp8 versions of the original agree on
 0.937 of answer text (38/45 byte-identical) with identical scores, so nothing observed
@@ -553,10 +571,10 @@ Those wall times are a warm datacenter GPU and are **not** comparable to the 330
 card needs at 200k — they only establish that the original behaves normally at depth,
 so the 262k window is not a ternary trick.
 
-**Three caveats worth as much as the result.** (1) With thinking enabled locally, every
-answer arrived with an empty `reasoning_content` — the chain was generated and
-discarded, so we score the answer but cannot inspect the reasoning (the Part 7 trap,
-now costing us observability instead of accuracy). (2) n=30, one seed: this detects a
+**Three caveats worth as much as the result.** (1) With thinking enabled, vLLM's
+`reasoning_content` came back empty on every prompt — the chain is generated and
+discarded — so on that engine we score the answer but cannot inspect the reasoning
+(llama.cpp keeps it, all 45 prompts). (2) n=30, one seed: this detects a
 large regression, not a 3% one. (3) The original was measured on third-party providers
 we can verify by name but cannot audit.
 
