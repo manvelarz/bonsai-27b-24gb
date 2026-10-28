@@ -1,5 +1,8 @@
 # Running Ternary-Bonsai-2-27B on a single 24 GB RTX 3090: vLLM vs llama.cpp, measured
 
+> **Canonical version:** [https://smartphotocropper.com/blog/ternary-bonsai-27b-24gb-vllm-vs-llamacpp/](https://smartphotocropper.com/blog/ternary-bonsai-27b-24gb-vllm-vs-llamacpp/) — this repository carries the full text,
+> the raw measurements in `data/` and the harnesses in `scripts/`.
+
 *A practical, numbers-first field report. All figures below were measured on the machine
 described, not estimated. Raw outputs are in [`data/`](data/) and the test scripts in
 [`scripts/`](scripts/).*
@@ -632,4 +635,3 @@ This work builds entirely on other people's work; full attribution with links is
 
 If you reuse this material, keep these credits and link back to the authors. Bugs in
 the vLLM plugin belong upstream in `fraserprice/bonsai-vllm`.
-

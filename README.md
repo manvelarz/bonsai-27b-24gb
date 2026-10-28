@@ -45,8 +45,9 @@ speculative decoding on. The earlier "fp8 KV crashes under load" result was a
 
 ## Status
 
-Published (companion repo). Canonical article lives on smartphotocropper.com once the
-blog post ships; this repo carries the full text, raw measurements and harnesses.
+Published. The **canonical article** is [https://smartphotocropper.com/blog/ternary-bonsai-27b-24gb-vllm-vs-llamacpp/](https://smartphotocropper.com/blog/ternary-bonsai-27b-24gb-vllm-vs-llamacpp/);
+this repo carries the full text ([`article.md`](article.md)), the raw measurements in
+[`data/`](data/) and the harnesses in [`scripts/`](scripts/).
 Paths/hostnames sanitized, hardware details kept. License to be added; see `CREDITS.md`
 for authors.
 
