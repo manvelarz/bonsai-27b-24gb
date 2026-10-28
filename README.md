@@ -23,6 +23,21 @@ failure modes we hit on Ampere.
 | quality, 30 verifiable prompts | 26/30 | 26/30 | 28/30 (within noise) |
 | solo decode, short ctx | 84 tok/s | 84 tok/s | 83.3 tok/s |
 
+## What does the compression cost?
+
+Same 45-prompt suite (30 verifiable answers), every configuration, thinking pinned:
+
+| | thinking off | thinking on |
+|---|---|---|
+| original Qwen3.8-27B, bf16 | 28/30 | 30/30 |
+| original Qwen3.8-27B, fp8 | 28/30 | 30/30 |
+| **ternary 2-bit, this rig** | 28/30 | **30/30** |
+
+The 2-bit build loses nothing measurable against the model it was compressed from, at
+either thinking setting. Thinking itself costs ~4x the output tokens. Details, the four
+disagreements and the caveats: [`article.md`](article.md) Part 8; raw results in
+[`data/`](data/).
+
 **2026-10-27 update:** vLLM now reaches the native 262k context with 8-bit KV *and*
 speculative decoding on. The earlier "fp8 KV crashes under load" result was a
 `num_speculative_tokens: 7` problem, not an fp8 problem. Details in

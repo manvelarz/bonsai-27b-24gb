@@ -220,3 +220,58 @@ see boot variance note in the article).
 slightly faster (67.0 vs 60.7 t/s) because fp8 KV halves the per-token KV bytes, the same
 effect that made llama.cpp's q8_0 win over bf16. The earlier "vLLM is 2x slower at long
 context" applied to the **bf16-KV** build only.
+
+
+---
+
+## 2026-10-28 — quality matrix (and the original it came from)
+
+The suite grew to 45 prompts (30 with verifiable answers), thinking pinned per run.
+Same prompts, same seed, greedy. Local configs on the 3090; the original Qwen3.8-27B
+via OpenRouter with the provider pinned (DeepInfra bf16, Chutes fp8) — $0.10 for the lot.
+
+| configuration | thinking off | thinking on |
+|---|---|---|
+| Qwen3.8-27B bf16 (DeepInfra) | 28/30 | 30/30 |
+| Qwen3.8-27B fp8 (Chutes) | 28/30 | 30/30 |
+| ternary 2-bit, local fp8 KV + MTP n=3 | 28/30 | 30/30 |
+| ternary 2-bit, local bf16 KV | 26/30 | 30/30 |
+| ternary 2-bit, llama.cpp q8_0 | 26/30 | 30/30 |
+
+Completion tokens over the suite: 1,293 off → 5,579 on (llama); 1,254 → 5,961 (bf16 KV);
+1,510 → 5,936 (fp8 KV). Thinking costs ~4x output, everywhere, and nobody keeps an
+answer without it — the compressed model and the original land in the same place.
+
+Text agreement: original bf16 vs original fp8 0.937 (38/45 identical); original bf16 vs
+local ternary 0.814 (28/45). Disagreements without thinking were a wash: the original
+slipped on (47*13)-(96/4) → 605 and 80 EUR -25% +21% → 63.00, the ternary build
+answered 587 and 72.60 but returned "8" for '5'+'3' and used an "e" in the rain sentence.
+
+Original at depth (Chutes fp8, needle at end of document): 20,526 tok 3.7 s; 102,587 tok
+13.9 s; 205,164 tok 34.2 s — all recovered. Datacenter GPUs, not comparable to 330 s
+at 200k here.
+
+Observability: llama.cpp returns `reasoning_content` on 45/45 prompts; both vLLM shapes
+return it empty on 45/45 (chain generated, discarded).
+
+## 2026-10-28 — MTP draft-depth sweep (one boot per depth)
+
+| depth | KV pool | solo decode | 4-stream agg | status |
+|---|---|---|---|---|
+| n=1 | 304,087 | 71.4 t/s (3 runs, ±0.2) | 252.1 | stable |
+| n=2 | 299,380 | 79.7 t/s | 240.0 | stable |
+| n=3 | 294,362 | 82.7 t/s (3 runs, ±0.1) | 253.8 | stable — chosen |
+| n=4 | — | — | — | cannot boot at 262k (needs 9.48 GiB KV, 9.3 available) |
+| n=5 | 283,514 | 79.0 t/s | 0 (HTTP 500) | unstable under load |
+| n=7 | — | — | — | crashes under load (the original "fp8 bug") |
+
+## 2026-10-28 — measurement corrections
+
+- Prefix cache faked prefill: 36,911 t/s reported at 40k before adding a unique nonce
+  prefix to every prompt.
+- 40-token probes overstated decode under MTP: 291 t/s at 200k, vs 55.5 t/s measured
+  with a 320-token output at 105k.
+- Cold start: same 5k prompt 585 t/s cold, 1219 t/s warm → warm-up request added.
+- KV pool varies per boot: 262,144 / 294,362 (fp8), 128,392 / 144,982 (bf16) → quote ranges.
+- The image entrypoint hardcodes `num_speculative_tokens: 7`; docker-run args override it
+  (vLLM logs `Found duplicate keys`). Verify the depth by fingerprint before publishing numbers.
