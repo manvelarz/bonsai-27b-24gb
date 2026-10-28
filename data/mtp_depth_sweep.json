@@ -1,0 +1,66 @@
+{
+  "note": "MTP draft-depth sweep, vLLM fp8 KV, max-model-len 262144, one boot per depth. solo = 3 runs where available, x4 = single load sweep (4 concurrent short streams).",
+  "config": {
+    "image": "fraserpricee/bonsai-vllm:20260918",
+    "kv_cache_dtype": "fp8_e4m3",
+    "max_model_len": 262144
+  },
+  "rows": [
+    {
+      "depth": 1,
+      "kv_pool": 304087,
+      "solo_tps": 71.4,
+      "solo_runs": [
+        71.3,
+        71.3,
+        71.6
+      ],
+      "x4_agg": 252.1,
+      "status": "stable"
+    },
+    {
+      "depth": 2,
+      "kv_pool": 299380,
+      "solo_tps": 79.7,
+      "solo_runs": null,
+      "x4_agg": 240.0,
+      "status": "stable"
+    },
+    {
+      "depth": 3,
+      "kv_pool": 294362,
+      "solo_tps": 82.7,
+      "solo_runs": [
+        82.6,
+        82.7,
+        82.7
+      ],
+      "x4_agg": 253.8,
+      "status": "stable"
+    },
+    {
+      "depth": 4,
+      "kv_pool": null,
+      "solo_tps": null,
+      "solo_runs": null,
+      "x4_agg": null,
+      "status": "boot fails: 9.48 GiB KV needed at 262k vs 9.3 GiB free"
+    },
+    {
+      "depth": 5,
+      "kv_pool": 283514,
+      "solo_tps": 79.0,
+      "solo_runs": null,
+      "x4_agg": 0.0,
+      "status": "unstable: HTTP 500 under 4 streams"
+    },
+    {
+      "depth": 7,
+      "kv_pool": null,
+      "solo_tps": null,
+      "solo_runs": null,
+      "x4_agg": null,
+      "status": "crashes under load (illegal memory access) \u2014 the original 'fp8 bug'"
+    }
+  ]
+}

@@ -280,6 +280,33 @@ configuration — while 4-stream aggregate rises from 167.1 to **253.8 tok/s**.
 
 ---
 
+### 4.5 Choosing the draft depth (n = 1…7)
+
+The draft depth is the single most consequential flag on this image, and it is not a
+free parameter: each speculative token costs KV/state memory and only pays off if it
+is accepted. Measured, one boot per depth, fp8 KV, 262k context:
+
+| MTP depth | KV pool | solo decode | 4-stream aggregate | status |
+|---|---|---|---|---|
+| n=1 | 304,087 | 71.4 tok/s (3 runs, ±0.2) | 252.1 tok/s | stable |
+| n=2 | 299,380 | 79.7 tok/s | 240.0 tok/s | stable |
+| **n=3** | **294,362** | **82.7 tok/s (3 runs, ±0.1)** | **253.8 tok/s** | **stable — best** |
+| n=4 | — | — | — | **cannot boot at 262k**: needs 9.48 GiB of KV, 9.3 GiB available |
+| n=5 | 283,514 | 79.0 tok/s | 0 (HTTP 500) | unstable under 4 streams |
+| n=7 | — | — | — | crashes under load (illegal memory access) — the original "fp8 bug" |
+
+Two mechanisms explain the shape. First, acceptance: the MTP head lands roughly 2–3
+tokens per draft on this model, so drafts deeper than that are mostly discarded work.
+Second, memory: every extra draft slot shrinks the KV pool (304k → 294k → 283k tokens),
+and at n=4 the pool can no longer cover a 262k request at all.
+
+So the honest statement is: **n=3 is the best depth *that is stable at 262k* on this
+card** — 16% faster than n=1 in a repeated solo measurement (82.7 vs 71.4 tok/s), best
+four-stream throughput, and the deepest setting that still fits. If you drop the
+context limit, n=4 becomes bootable, but you trade 65k of context for a draft that
+acceptance will mostly reject. If you need maximum KV headroom instead of speed,
+`bonsai-vllm vllm-max` (no MTP at all) gives 311,200 tokens at 58 tok/s solo.
+
 ## Part 5 — Does quantized KV cost quality? Measured, not asserted
 
 A memory saving that silently degrades answers is not a saving. So we ran the same

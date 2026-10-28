@@ -1,0 +1,52 @@
+{
+  "label": "mtp_2",
+  "solo": {
+    "ttft": 0.39,
+    "total": 4.78,
+    "ctok": 350,
+    "ptok": 28,
+    "tps": 79.7,
+    "err": null,
+    "words": 273
+  },
+  "levels": {
+    "2": {
+      "n": 2,
+      "wall_s": 5.09,
+      "total_ctok": 712,
+      "aggregate_tps": 139.9,
+      "per_stream_tps": [
+        74.1,
+        78.3
+      ],
+      "ttft_s": [
+        0.29,
+        0.54
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    },
+    "4": {
+      "n": 4,
+      "wall_s": 5.87,
+      "total_ctok": 1409,
+      "aggregate_tps": 240.0,
+      "per_stream_tps": [
+        63.2,
+        63.2,
+        63.2,
+        64.5
+      ],
+      "ttft_s": [
+        0.29,
+        0.25,
+        0.29,
+        0.29
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    }
+  }
+}
