@@ -36,6 +36,17 @@ context; they separate only under long context (KV-cache bandwidth) or concurren
 
 ---
 
+> **Method, in one place.** Every number in this report was produced with the same
+> rules, and nothing below deviates from them without saying so:
+> **thinking disabled** (`chat_template_kwargs: {"enable_thinking": false}` — `/no_think`
+> in the prompt does nothing on the llama.cpp build), **`temperature: 0`** with a fixed
+> seed, **cache-busted prompts** (a unique `NONCE-<uuid>` prefix on every request, so no
+> engine can answer from its prefix cache), a **needle at the very end** of every long
+> prompt to prove the tokens were actually read, a **warm-up request before measuring**,
+> and decode throughput measured on **outputs of a few hundred tokens**, never on
+> 30–40-token probes. Runs that broke one of these rules are flagged where they appear
+> (Part 7 documents three of them producing numbers that looked fine and were wrong).
+
 ## Why this exists
 
 Ternary-Bonsai-2-27B (Prism ML's 2-bit ternary Qwen3.8-27B) is a ~27B model that
@@ -351,8 +362,8 @@ scale — the harness in `scripts/quality_eval.py` is shaped for exactly that.
 ## Part 6 — Where the time goes: TTFT, prefill, decode, concurrency
 
 Every point below comes from the same protocol: one filler document, a needle at the
-very end, a 40-token answer, thinking off, and a unique nonce prefix so no prompt can
-hit a cache (see Part 7 — this matters more than it sounds).
+very end, a 40-token answer, **thinking off**, and a unique nonce prefix so no prompt
+can hit a cache (see Part 7 — this matters more than it sounds).
 
 | prompt tokens | llama.cpp q8_0 | vLLM bf16 | vLLM fp8 + MTP n=3 |
 |---|---|---|---|
@@ -434,6 +445,13 @@ stack behind every measurement above:
   --compilation-config '{"cudagraph_capture_sizes":[1,2,4,8,16,32]}'`
 - **llama.cpp flags:** `-c 262144 --parallel 2 --kv-unified -ctk q8_0 -ctv q8_0
   --flash-attn on --spec-type draft-mtp --spec-draft-n-max 2`
+
+> **Copy the whole command, not part of it.** The image's entrypoint already bakes in
+> `--speculative-config '{"method":"mtp","num_speculative_tokens":7}'` — the depth that
+> crashes under load. Anything you pass on `docker run` is appended and wins (vLLM logs
+> `Found duplicate keys` and takes the later value). Pass the full flag set above, or
+> verify what is actually running: n=3 shows ~83 tok/s solo and a 294k-token KV pool,
+> n=1 shows ~71, and n=7 crashes under four concurrent streams.
 
 ## What we would do differently
 
