@@ -1,0 +1,459 @@
+{
+  "label": "qwen38_bf16_think",
+  "model": "qwen/qwen3.8-27b",
+  "provider": "DeepInfra",
+  "quant": "bf16",
+  "reasoning": true,
+  "results": [
+    {
+      "text": "587",
+      "ctok": 93,
+      "dt": 2.28,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 40,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "42",
+      "ctok": 137,
+      "dt": 2.61,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 55,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "72.60",
+      "ctok": 123,
+      "dt": 2.56,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 73,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "ctok": 46,
+      "dt": 1.99,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 31,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "ctok": 51,
+      "dt": 1.44,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 30,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "def is_palindrome(s):\n    cleaned = [ch.lower() for ch in s if ch.isalnum()]\n    return cleaned == cleaned[::-1]",
+      "ctok": 144,
+      "dt": 3.68,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 115,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "ctok": 127,
+      "dt": 3.31,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 73,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst)-1): print(lst[i+1])",
+      "ctok": 916,
+      "dt": 15.11,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 879,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "SELECT email\nFROM users\nWHERE created_at >= '2025-01-01'\n  AND created_at < '2026-01-01'\nORDER BY created_at DESC;",
+      "ctok": 406,
+      "dt": 9.32,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 333,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": 1250.00,\n  \"currency\": \"EUR\"\n}",
+      "ctok": 908,
+      "dt": 16.15,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 741,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\"sentiment\": \"negative\", \"confidence\": 0.98}",
+      "ctok": 81,
+      "dt": 2.05,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 60,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\n    \"city\": \"Madrid\",\n    \"temp_c\": 21\n  },\n  {\n    \"city\": \"Oslo\",\n    \"temp_c\": 4\n  },\n  {\n    \"city\": \"Lima\",\n    \"temp_c\": 19\n  }\n]",
+      "ctok": 161,
+      "dt": 6.08,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 71,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at three in the morning, and no one noticed until breakfast.",
+      "ctok": 154,
+      "dt": 4.65,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 152,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi al instante.",
+      "ctok": 368,
+      "dt": 27.15,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 369,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie deployen.",
+      "ctok": 302,
+      "dt": 8.15,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 329,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the numbers in the latest report.",
+      "ctok": 178,
+      "dt": 3.71,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 184,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Quarterly revenue rose 18% to 4.2 million euros, driven by subscriptions despite hardware sales falling for a third straight quarter.",
+      "ctok": 143,
+      "dt": 3.76,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 131,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "840, 310, 0.4",
+      "ctok": 100,
+      "dt": 1.98,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 74,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "27B on 24GB GPU needs quantized weights and KV cache.",
+      "ctok": 298,
+      "dt": 5.75,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 192,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "i appreciate you",
+      "ctok": 111,
+      "dt": 3.44,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 115,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls hard on a road.",
+      "ctok": 185,
+      "dt": 3.38,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 147,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Regular backups protect important data from loss due to hardware failure, cyberattacks, or accidental deletion.\n- Storing backups in multiple locations, such as offsite and in the cloud, improves recovery options and disaster resilience.\n- Testing backup restores ensures that saved data can actually be recovered when needed.",
+      "ctok": 111,
+      "dt": 2.14,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 52,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "ctok": 40,
+      "dt": 1.04,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 37,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "ctok": 29,
+      "dt": 1.15,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 26,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "ctok": 70,
+      "dt": 3.49,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 45,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "ctok": 120,
+      "dt": 2.31,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 68,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "ctok": 44,
+      "dt": 1.14,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 35,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes",
+      "ctok": 53,
+      "dt": 1.37,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 42,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "Friday",
+      "ctok": 189,
+      "dt": 3.27,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 145,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "ctok": 43,
+      "dt": 1.04,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 34,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "The box labeled **\u201capples\u201d** contains **oranges**.\n\nReasoning:  \n- The box labeled **\u201cmixed\u201d** can\u2019t actually be mixed.  \n- You picked an apple from it, so it can\u2019t be the oranges box either.  \n- Therefore, the box labeled **\u201cmixed\u201d** is the **apples** box.  \n- The box labeled **\u201coranges\u201d** can\u2019t be oranges, so it must be the **mixed** box.  \n- That leaves the box labeled **\u201capples\u201d** as the **oranges** box.",
+      "ctok": 351,
+      "dt": 5.76,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 261,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "ctok": 40,
+      "dt": 0.98,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 23,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "ctok": 61,
+      "dt": 4.18,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 40,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "ctok": 97,
+      "dt": 2.3,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 45,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "ctok": 52,
+      "dt": 1.5,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 36,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "ctok": 79,
+      "dt": 1.7,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 56,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "ctok": 78,
+      "dt": 2.9,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 40,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "ctok": 51,
+      "dt": 1.25,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 41,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "53",
+      "ctok": 54,
+      "dt": 3.47,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 44,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "ctok": 31,
+      "dt": 0.92,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 29,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "ctok": 31,
+      "dt": 0.93,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 29,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "ctok": 35,
+      "dt": 1.54,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 31,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "ctok": 36,
+      "dt": 1.02,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 32,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "ctok": 62,
+      "dt": 1.43,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 43,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "Yes",
+      "ctok": 170,
+      "dt": 2.9,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 167,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}

@@ -1,0 +1,459 @@
+{
+  "label": "qwen38_bf16",
+  "model": "qwen/qwen3.8-27b",
+  "provider": "DeepInfra",
+  "quant": "bf16",
+  "reasoning": false,
+  "results": [
+    {
+      "text": "605",
+      "ctok": 4,
+      "dt": 0.49,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 0.53,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "60.20",
+      "ctok": 6,
+      "dt": 0.74,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "ctok": 5,
+      "dt": 0.74,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.76,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "```python\ndef is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum()]\n    return cleaned == cleaned[::-1]\n```",
+      "ctok": 38,
+      "dt": 1.58,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "ctok": 17,
+      "dt": 6.73,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst) - 1): print(lst[i+1])",
+      "ctok": 18,
+      "dt": 0.97,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "```sql\nSELECT email\nFROM users\nWHERE created_at >= '2025-01-01' AND created_at < '2026-01-01'\nORDER BY created_at DESC;\n```",
+      "ctok": 51,
+      "dt": 2.6,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": \"1.250,00\",\n  \"currency\": \"EUR\"\n}",
+      "ctok": 37,
+      "dt": 1.16,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"sentiment\": \"negative\",\n  \"confidence\": 0.98\n}",
+      "ctok": 23,
+      "dt": 1.16,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\"city\": \"Madrid\", \"temp_c\": 21},\n  {\"city\": \"Oslo\", \"temp_c\": 4},\n  {\"city\": \"Lima\", \"temp_c\": 19}\n]",
+      "ctok": 53,
+      "dt": 3.19,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at three in the morning, and no one noticed until breakfast.",
+      "ctok": 17,
+      "dt": 0.76,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi al instante.",
+      "ctok": 18,
+      "dt": 0.77,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie die Bereitstellung durchf\u00fchren.",
+      "ctok": 14,
+      "dt": 0.76,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the figures in the latest report.",
+      "ctok": 13,
+      "dt": 0.76,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "The company's quarterly revenue rose 18% to 4.2 million euros, driven by subscriptions despite a third consecutive quarter of declining hardware sales.",
+      "ctok": 32,
+      "dt": 1.28,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "The three concrete numbers in the sentence are:\n\n1. **840**\n2. **310**\n3. **0.4**",
+      "ctok": 34,
+      "dt": 1.32,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "27B models need quantized weights and KV cache on 24GB GPUs.",
+      "ctok": 19,
+      "dt": 0.91,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "Hello there friend",
+      "ctok": 4,
+      "dt": 1.25,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls on dry soil.",
+      "ctok": 7,
+      "dt": 1.18,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Regular backups ensure data recovery in the event of hardware failure, cyberattacks, or accidental deletion.\n- Implementing the 3-2-1 rule (three copies of data, on two different media types, with one offsite) significantly enhances data resilience.\n- Automated backup schedules reduce human error and guarantee consistent protection without requiring manual intervention.",
+      "ctok": 72,
+      "dt": 2.23,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "ctok": 5,
+      "dt": 0.81,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "ctok": 3,
+      "dt": 1.15,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "ctok": 11,
+      "dt": 0.7,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "ctok": 2,
+      "dt": 4.67,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "ctok": 5,
+      "dt": 10.43,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes",
+      "ctok": 2,
+      "dt": 0.4,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "Friday",
+      "ctok": 2,
+      "dt": 0.58,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "ctok": 2,
+      "dt": 0.39,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "Here is the step-by-step logical deduction to solve this puzzle:\n\n### 1. Analyze the Constraints\n*   There are three boxes: one contains only **Apples**, one contains only **Oranges**, and one contains **Mixed** (Apples and Oranges).\n*   **Crucial Rule:** All labels are **wrong**.\n*   **Action:** You pick one fruit from the box labeled **\"Mixed\"**.\n*   **Result:** The fruit is an **Apple**.\n\n### 2. Deduce the Contents of the Box Labeled \"Mixed\"\n*   The box is labeled \"Mixed,\" but we know all labels are wrong. Therefore, this box does **not** contain mixed fruit. It must contain either only Apples or only Oranges.\n*   You picked an **Apple** from this box.\n*   If this box contained only Oranges, you could not have picked an Apple.\n*   Therefore, the box labeled \"Mixed\" must contain **only Apples**.\n\n### 3. Deduce the Contents of the Remaining Boxes\nNow we know:\n*   Box labeled \"Mixed\" $\\rightarrow$ Contains **Apples**.\n\nWe have two boxes left:\n*   Box labeled \"Apples\"\n*   Box labeled \"Oranges\"\n\nAnd two contents left:\n*   Oranges\n*   Mixed\n\nLet's look at the box labeled **\"Oranges\"**:\n*   The label is wrong, so it does **not** contain only Oranges.\n*   It cannot contain Apples (because the box labeled \"Mixed\" already has the Apples).\n*   Therefore, the box labeled \"Oranges\" must contain **Mixed** fruit.\n\nLet's look at the box labeled **\"Apples\"**:\n*   The label is wrong, so it does **not** contain only Apples.\n*   It cannot contain Mixed fruit (",
+      "ctok": 400,
+      "dt": 10.3,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "ctok": 3,
+      "dt": 0.43,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "ctok": 6,
+      "dt": 1.56,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "ctok": 3,
+      "dt": 0.89,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "ctok": 4,
+      "dt": 0.43,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "ctok": 4,
+      "dt": 0.39,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 0.39,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "ctok": 2,
+      "dt": 0.39,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "53",
+      "ctok": 3,
+      "dt": 0.9,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 0.39,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "ctok": 2,
+      "dt": 0.55,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "ctok": 3,
+      "dt": 0.46,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "ctok": 3,
+      "dt": 0.5,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "ctok": 3,
+      "dt": 0.46,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "No.\n\n**Logical Deduction:**\n1.  **Premise 1:** No cats are reptiles. (This establishes that the set of \"cats\" and the set of \"reptiles\" are disjoint; they do not overlap.)\n2.  **Premise 2:** All reptiles are animals. (This establishes that the set of \"reptiles\" is a subset of the set of \"animals.\")\n3.  **Analysis:** These two premises provide information about the relationship between cats and reptiles, and between reptiles and animals. However, they do **not** provide any information about the relationship between cats and animals directly.\n    *   It is logically possible that cats are animals (as is true in reality).\n    *   It is also logically possible, within the strict constraints of these two premises alone, that cats are *not* animals (e.g., if cats were considered a separate category entirely distinct from animals).\n4.  **Conclusion:** Since the premises do not force the conclusion that \"cats are animals,\" and the question asks if a cat *can* be an animal based *only* on the provided logic, the strict logical answer to whether the premises *prove* it is no. However, usually, these questions ask if the statement \"A cat is an animal\" is a valid deduction. It is not a valid deduction.\n\nBut wait, the question asks: **\"Can a cat be an animal?\"**\n\nIn logic puzzles, \"Can X be Y?\" usually asks if it is *possible* given the premises, or if it is *necessarily* true.\n*   If it means \"Is it possible for a cat to be an animal given these premises?\": **Yes**, it is possible. The premises do not forbid it.\n*   If it means \"Does it follow necessarily that a cat is an animal?\": **No**, it does not follow.\n\nHowever",
+      "ctok": 400,
+      "dt": 10.61,
+      "provider": "DeepInfra",
+      "reasoning_tokens": 0,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}

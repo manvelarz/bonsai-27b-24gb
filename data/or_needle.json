@@ -1,0 +1,29 @@
+{
+  "provider": "Chutes",
+  "rows": [
+    {
+      "target": 20000,
+      "tokens": 20526,
+      "wall_s": 3.7,
+      "needle": true,
+      "provider": "Chutes",
+      "answer": "ZEBRA-4471"
+    },
+    {
+      "target": 100000,
+      "tokens": 102587,
+      "wall_s": 13.9,
+      "needle": true,
+      "provider": "Chutes",
+      "answer": "ZEBRA-4471"
+    },
+    {
+      "target": 200000,
+      "tokens": 205164,
+      "wall_s": 34.2,
+      "needle": true,
+      "provider": "Chutes",
+      "answer": "ZEBRA-4471"
+    }
+  ]
+}

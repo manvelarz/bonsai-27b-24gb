@@ -1,0 +1,458 @@
+{
+  "label": "qwen38_fp8",
+  "model": "qwen/qwen3.8-27b",
+  "provider": "Chutes",
+  "quant": "fp8",
+  "results": [
+    {
+      "text": "605",
+      "ctok": 4,
+      "dt": 1.69,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 1.51,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "63.00",
+      "ctok": 6,
+      "dt": 1.49,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "ctok": 5,
+      "dt": 1.38,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 1.52,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "```python\ndef is_palindrome(s):\n    cleaned = [c.lower() for c in s if c.isalnum()]\n    return cleaned == cleaned[::-1]\n```",
+      "ctok": 38,
+      "dt": 1.97,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "ctok": 17,
+      "dt": 1.6,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst) - 1): print(lst[i+1])",
+      "ctok": 18,
+      "dt": 1.48,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "```sql\nSELECT email\nFROM users\nWHERE created_at >= '2025-01-01' AND created_at < '2026-01-01'\nORDER BY created_at DESC;\n```",
+      "ctok": 51,
+      "dt": 2.0,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": \"1.250,00\",\n  \"currency\": \"EUR\"\n}",
+      "ctok": 37,
+      "dt": 1.67,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\"sentiment\": \"negative\", \"confidence\": 0.98}",
+      "ctok": 17,
+      "dt": 1.71,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\"city\": \"Madrid\", \"temp_c\": 21},\n  {\"city\": \"Oslo\", \"temp_c\": 4},\n  {\"city\": \"Lima\", \"temp_c\": 19}\n]",
+      "ctok": 53,
+      "dt": 1.91,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at three in the morning, and no one noticed until breakfast.",
+      "ctok": 17,
+      "dt": 1.62,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi de inmediato.",
+      "ctok": 18,
+      "dt": 1.61,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie die Bereitstellung durchf\u00fchren.",
+      "ctok": 14,
+      "dt": 1.64,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the figures in the latest report.",
+      "ctok": 13,
+      "dt": 1.99,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "The company's quarterly revenue rose 18% to 4.2 million euros, driven by subscriptions despite a third consecutive quarter of declining hardware sales.",
+      "ctok": 32,
+      "dt": 1.96,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "The three concrete numbers in the sentence are:\n\n1. **840**\n2. **310**\n3. **0.4**",
+      "ctok": 34,
+      "dt": 1.61,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "27B model on 24GB GPU needs quantized weights and KV cache.",
+      "ctok": 19,
+      "dt": 3.23,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "Hello there friend",
+      "ctok": 4,
+      "dt": 1.82,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls on dry soil.",
+      "ctok": 7,
+      "dt": 1.55,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Regularly backing up data ensures that critical information can be restored in the event of hardware failure, accidental deletion, or cyberattacks.\n- Implementing the 3-2-1 rule, which involves keeping three copies of data on two different types of media with one copy stored offsite, significantly enhances data resilience.\n- Automated backup schedules reduce the risk of human error and ensure that data is consistently protected without requiring manual intervention.",
+      "ctok": 89,
+      "dt": 3.2,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "ctok": 5,
+      "dt": 1.49,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "ctok": 3,
+      "dt": 2.0,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "ctok": 11,
+      "dt": 1.58,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "ctok": 2,
+      "dt": 0.85,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "ctok": 5,
+      "dt": 1.41,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes",
+      "ctok": 2,
+      "dt": 0.75,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "Friday",
+      "ctok": 2,
+      "dt": 1.63,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "ctok": 2,
+      "dt": 1.83,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "Here is the step-by-step logical deduction to solve this puzzle:\n\n### 1. Analyze the Constraints\n*   There are three boxes: one contains **Apples**, one contains **Oranges**, and one contains **Mixed**.\n*   **Crucial Rule:** All labels are **wrong**.\n*   **Action:** You pick one fruit from the box labeled **\"Mixed\"**.\n*   **Result:** The fruit is an **Apple**.\n\n### 2. Deduce the Contents of the Box Labeled \"Mixed\"\n*   Since the label \"Mixed\" is wrong, this box cannot contain mixed fruit. It must contain either only Apples or only Oranges.\n*   You picked an **Apple** from this box.\n*   If the box contained only Oranges, you could not have picked an Apple.\n*   Therefore, the box labeled **\"Mixed\"** must contain **only Apples**.\n\n### 3. Deduce the Contents of the Box Labeled \"Oranges\"\n*   We now know:\n    *   Box labeled \"Mixed\" = Apples\n*   This leaves two boxes: one labeled \"Apples\" and one labeled \"Oranges\".\n*   This leaves two contents: Oranges and Mixed.\n*   Look at the box labeled **\"Oranges\"**.\n    *   The label is wrong, so it cannot contain Oranges.\n    *   It cannot contain Apples (because the box labeled \"Mixed\" already has the Apples).\n    *   Therefore, the box labeled \"Oranges\" must contain **Mixed** fruit.\n\n### 4. Deduce the Contents of the Box Labeled \"Apples\"\n*   We have identified:\n    *   Box labeled \"Mixed\" = Apples\n    *   Box labeled \"Oranges\" = Mixed\n*   The only remaining box is the one labeled **\"Apples\"**.",
+      "ctok": 400,
+      "dt": 5.87,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "ctok": 3,
+      "dt": 2.04,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "ctok": 6,
+      "dt": 1.39,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "ctok": 3,
+      "dt": 1.73,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "ctok": 4,
+      "dt": 1.49,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "ctok": 4,
+      "dt": 1.56,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "ctok": 3,
+      "dt": 1.51,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "ctok": 2,
+      "dt": 1.41,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "53",
+      "ctok": 3,
+      "dt": 1.43,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "ctok": 2,
+      "dt": 2.53,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "ctok": 2,
+      "dt": 1.89,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "ctok": 3,
+      "dt": 1.71,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "ctok": 3,
+      "dt": 1.43,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "ctok": 3,
+      "dt": 1.89,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "No.\n\n**Logical Deduction:**\n1.  **Premise 1:** No cats are reptiles. (This establishes that the set of cats and the set of reptiles are disjoint.)\n2.  **Premise 2:** All reptiles are animals. (This establishes that the set of reptiles is a subset of the set of animals.)\n3.  **Analysis:** These premises define the relationship between cats, reptiles, and animals. However, they do **not** provide any information about the relationship between cats and animals directly.\n    *   It is logically possible that cats are animals (and simply not reptiles).\n    *   It is also logically possible that cats are not animals (and not reptiles).\n4.  **Conclusion:** Based strictly on the provided premises, it is impossible to determine whether a cat is an animal. Therefore, the statement \"a cat is an animal\" cannot be confirmed as true based *only* on the given information. In strict logical terms, the conclusion does not follow.\n\nHowever, the question asks \"Can a cat be an animal?\" in the context of logical possibility derived from the premises.\n*   If the question implies \"Does it logically follow that a cat is an animal?\", the answer is **No**.\n*   If the question implies \"Is it logically possible for a cat to be an animal given these premises?\", the answer is **Yes** (because the premises do not forbid it).\n\nStandard logic puzzles of this format (\"Can X be Y?\") usually ask if the conclusion is **necessarily true** based on the premises. Since the premises do not force cats to be animals, the answer to \"Is it necessarily true?\" is No.\n\nLet's re-read the specific phrasing: \"Can a cat be an animal?\"\nIn many logical contexts, \"Can\" asks about possibility.\n*   Premise: No cats are reptiles.",
+      "ctok": 400,
+      "dt": 6.98,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}

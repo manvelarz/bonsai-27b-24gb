@@ -1,0 +1,459 @@
+{
+  "label": "qwen38_fp8_think",
+  "model": "qwen/qwen3.8-27b",
+  "provider": "Chutes",
+  "quant": "fp8",
+  "reasoning": true,
+  "results": [
+    {
+      "text": "587",
+      "ctok": 72,
+      "dt": 2.12,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a1",
+      "cat": "math",
+      "expect": "515"
+    },
+    {
+      "text": "42",
+      "ctok": 54,
+      "dt": 1.89,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a2",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "72.60",
+      "ctok": 142,
+      "dt": 5.02,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a3",
+      "cat": "math",
+      "expect": "72.60"
+    },
+    {
+      "text": "5050",
+      "ctok": 52,
+      "dt": 10.97,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a4",
+      "cat": "math",
+      "expect": "5050"
+    },
+    {
+      "text": "8",
+      "ctok": 52,
+      "dt": 2.34,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a5",
+      "cat": "math",
+      "expect": "8"
+    },
+    {
+      "text": "def is_palindrome(s):\n    cleaned = [ch.lower() for ch in s if ch.isalnum()]\n    return cleaned == cleaned[::-1]",
+      "ctok": 125,
+      "dt": 3.12,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c1",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "[0, 1, 4, 9, 16]",
+      "ctok": 108,
+      "dt": 3.79,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c2",
+      "cat": "code",
+      "expect": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "text": "for i in range(len(lst)-1): print(lst[i+1])",
+      "ctok": 377,
+      "dt": 7.36,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c3",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "SELECT email\nFROM users\nWHERE created_at >= '2025-01-01'\n  AND created_at < '2026-01-01'\nORDER BY created_at DESC;",
+      "ctok": 224,
+      "dt": 4.59,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c4",
+      "cat": "code",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"name\": \"Acme GmbH\",\n  \"amount\": 1250.00,\n  \"currency\": \"EUR\"\n}",
+      "ctok": 607,
+      "dt": 30.66,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "j1",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "{\n  \"sentiment\": \"negative\",\n  \"confidence\": 0.98\n}",
+      "ctok": 85,
+      "dt": 2.44,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "j2",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "[\n  {\n    \"city\": \"Madrid\",\n    \"temp_c\": 21\n  },\n  {\n    \"city\": \"Oslo\",\n    \"temp_c\": 4\n  },\n  {\n    \"city\": \"Lima\",\n    \"temp_c\": 19\n  }\n]",
+      "ctok": 155,
+      "dt": 3.29,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "j3",
+      "cat": "json",
+      "expect": null
+    },
+    {
+      "text": "The server crashed at three in the morning, and nobody noticed until breakfast.",
+      "ctok": 162,
+      "dt": 3.27,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t1",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "La cach\u00e9 est\u00e1 caliente, por lo que el primer token llega casi al instante.",
+      "ctok": 528,
+      "dt": 10.44,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t2",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "Bitte starten Sie den Dienst neu, bevor Sie deployen.",
+      "ctok": 744,
+      "dt": 11.38,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t3",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "I need you to review the numbers in the last report.",
+      "ctok": 185,
+      "dt": 5.5,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "t4",
+      "cat": "translation",
+      "expect": null
+    },
+    {
+      "text": "The company's quarterly revenue rose 18% to 4.2 million euros, driven mainly by subscriptions, while hardware sales declined for a third consecutive quarter.",
+      "ctok": 153,
+      "dt": 4.06,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "s1",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "840 ms, 310 ms, 0.4 percent",
+      "ctok": 142,
+      "dt": 3.56,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "s2",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "27B on 24GB GPU needs quantized weights and KV cache.",
+      "ctok": 228,
+      "dt": 4.21,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "s3",
+      "cat": "summary",
+      "expect": null
+    },
+    {
+      "text": "hello there friend",
+      "ctok": 62,
+      "dt": 2.22,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i1",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "Rain falls on grass.",
+      "ctok": 169,
+      "dt": 4.6,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i2",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "- Regular backups protect data from loss due to hardware failure, human error, or cyberattacks.\n- Storing backups in multiple locations, such as offsite or in the cloud, improves recovery reliability.\n- Testing backup restores ensures that data can be recovered when needed.",
+      "ctok": 100,
+      "dt": 2.97,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i3",
+      "cat": "instruction",
+      "expect": null
+    },
+    {
+      "text": "LISBON",
+      "ctok": 43,
+      "dt": 2.41,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "i4",
+      "cat": "instruction",
+      "expect": "LISBON"
+    },
+    {
+      "text": "Canberra",
+      "ctok": 35,
+      "dt": 3.55,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f1",
+      "cat": "factual",
+      "expect": "Canberra"
+    },
+    {
+      "text": "1073741824",
+      "ctok": 73,
+      "dt": 2.26,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f2",
+      "cat": "factual",
+      "expect": "1073741824"
+    },
+    {
+      "text": "1",
+      "ctok": 118,
+      "dt": 3.19,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f3",
+      "cat": "factual",
+      "expect": "1"
+    },
+    {
+      "text": "1989",
+      "ctok": 49,
+      "dt": 2.02,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f4",
+      "cat": "factual",
+      "expect": "1989"
+    },
+    {
+      "text": "Yes",
+      "ctok": 54,
+      "dt": 1.98,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l1",
+      "cat": "logic",
+      "expect": "Yes"
+    },
+    {
+      "text": "Friday",
+      "ctok": 62,
+      "dt": 2.31,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l2",
+      "cat": "logic",
+      "expect": "Friday"
+    },
+    {
+      "text": "A",
+      "ctok": 42,
+      "dt": 2.25,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l3",
+      "cat": "logic",
+      "expect": "A"
+    },
+    {
+      "text": "The box labeled **\u201capples\u201d** contains **oranges**.\n\nReasoning:\n\n- All labels are wrong.\n- The box labeled **\u201cmixed\u201d** cannot actually be mixed.\n- You picked an apple from it, so it must be the **all-apples** box.\n- That leaves the boxes labeled **\u201capples\u201d** and **\u201coranges\u201d** to contain **oranges** and **mixed**.\n- The box labeled **\u201coranges\u201d** cannot be oranges, so it must be **mixed**.\n- Therefore, the box labeled **\u201capples\u201d** must contain **oranges**.",
+      "ctok": 486,
+      "dt": 9.0,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l4",
+      "cat": "logic",
+      "expect": null
+    },
+    {
+      "text": "27",
+      "ctok": 47,
+      "dt": 2.04,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a6",
+      "cat": "math",
+      "expect": "27"
+    },
+    {
+      "text": "0.875",
+      "ctok": 61,
+      "dt": 2.68,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a7",
+      "cat": "math",
+      "expect": "0.875"
+    },
+    {
+      "text": "19",
+      "ctok": 83,
+      "dt": 2.35,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a8",
+      "cat": "math",
+      "expect": "19"
+    },
+    {
+      "text": "165",
+      "ctok": 56,
+      "dt": 2.05,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a9",
+      "cat": "math",
+      "expect": "165"
+    },
+    {
+      "text": "150",
+      "ctok": 72,
+      "dt": 2.59,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a10",
+      "cat": "math",
+      "expect": "150"
+    },
+    {
+      "text": "42",
+      "ctok": 78,
+      "dt": 3.04,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "a11",
+      "cat": "math",
+      "expect": "42"
+    },
+    {
+      "text": "3",
+      "ctok": 64,
+      "dt": 2.13,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c5",
+      "cat": "code",
+      "expect": "3"
+    },
+    {
+      "text": "53",
+      "ctok": 76,
+      "dt": 5.69,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "c6",
+      "cat": "code",
+      "expect": "53"
+    },
+    {
+      "text": "8",
+      "ctok": 32,
+      "dt": 1.91,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f5",
+      "cat": "factual",
+      "expect": "8"
+    },
+    {
+      "text": "Au",
+      "ctok": 34,
+      "dt": 1.73,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f6",
+      "cat": "factual",
+      "expect": "Au"
+    },
+    {
+      "text": "Mercury",
+      "ctok": 36,
+      "dt": 2.37,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f7",
+      "cat": "factual",
+      "expect": "Mercury"
+    },
+    {
+      "text": "90",
+      "ctok": 35,
+      "dt": 1.89,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "f8",
+      "cat": "factual",
+      "expect": "90"
+    },
+    {
+      "text": "80",
+      "ctok": 44,
+      "dt": 2.13,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l5",
+      "cat": "logic",
+      "expect": "80"
+    },
+    {
+      "text": "Yes",
+      "ctok": 151,
+      "dt": 3.94,
+      "provider": "Chutes",
+      "reasoning_tokens": 0,
+      "id": "l6",
+      "cat": "logic",
+      "expect": "Yes"
+    }
+  ]
+}
