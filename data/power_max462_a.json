@@ -1,0 +1,16 @@
+{
+  "label": "max462_a",
+  "power_limit_w": 462.0,
+  "prompt_tokens": 40016,
+  "ttft_s": 39.57,
+  "prefill_tps": 1011,
+  "decode_tps": 75.4,
+  "completion_tokens": 383,
+  "needle_ok": true,
+  "peak_power_w": 433.32,
+  "avg_power_w": 405.4,
+  "peak_sm_mhz": 1950,
+  "avg_mem_mhz": 9501,
+  "peak_temp_c": 77,
+  "seconds": 44.7
+}

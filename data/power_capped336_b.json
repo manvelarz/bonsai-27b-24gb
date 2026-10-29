@@ -1,0 +1,16 @@
+{
+  "label": "capped336_b",
+  "power_limit_w": 336.0,
+  "prompt_tokens": 40019,
+  "ttft_s": 40.07,
+  "prefill_tps": 999,
+  "decode_tps": 74.2,
+  "completion_tokens": 351,
+  "needle_ok": true,
+  "peak_power_w": 336.2,
+  "avg_power_w": 326.9,
+  "peak_sm_mhz": 1935,
+  "avg_mem_mhz": 9501,
+  "peak_temp_c": 71,
+  "seconds": 45.1
+}

@@ -1,0 +1,293 @@
+{
+  "suite": "bonsai-27b-24gb quality suite",
+  "how_to_run": "python3 scripts/quality_eval.py <label>  (local engine on :8000; THINK=1 enables thinking). For OpenRouter: python3 scripts/or_eval.py <label> <provider> <quant> [on|off] — it reuses this exact list.",
+  "settings": {
+    "temperature": 0.0,
+    "seed": 42,
+    "max_tokens": 400,
+    "max_tokens_thinking": 1500,
+    "chat_template_kwargs": {
+      "enable_thinking": false
+    },
+    "scoring": "answer must contain the expected value, case/whitespace/punctuation-insensitive; custom checks: i2 = no letter 'e', l4 = 'oranges'; a1 expected value is 587 (47*13-96/4)"
+  },
+  "counts": {
+    "total": 45,
+    "verifiable": 30,
+    "note": "verifiable = expected value present, or a custom check (i2, l4)"
+  },
+  "prompts": [
+    {
+      "id": "a1",
+      "category": "math",
+      "prompt": "Compute (47 * 13) - (96 / 4). Answer with the number only.",
+      "expected": "515"
+    },
+    {
+      "id": "a2",
+      "category": "math",
+      "prompt": "What is 17.5% of 240? Answer with the number only.",
+      "expected": "42"
+    },
+    {
+      "id": "a3",
+      "category": "math",
+      "prompt": "A shirt costs 80 EUR. It is discounted 25%, then taxed 21% on the discounted price. Final price? Number only, 2 decimals.",
+      "expected": "72.60"
+    },
+    {
+      "id": "a4",
+      "category": "math",
+      "prompt": "Sum the integers from 1 to 100. Number only.",
+      "expected": "5050"
+    },
+    {
+      "id": "a5",
+      "category": "math",
+      "prompt": "Solve 3x + 7 = 31. Give x only.",
+      "expected": "8"
+    },
+    {
+      "id": "c1",
+      "category": "code",
+      "prompt": "Write a Python function `is_palindrome(s)` that ignores case and non-alphanumeric characters. Code only.",
+      "expected": null
+    },
+    {
+      "id": "c2",
+      "category": "code",
+      "prompt": "What does `print([i*i for i in range(5)])` output? Output only.",
+      "expected": "[0, 1, 4, 9, 16]"
+    },
+    {
+      "id": "c3",
+      "category": "code",
+      "prompt": "Fix this buggy line and return only the fixed line: for i in range(len(lst)): print(lst[i+1])",
+      "expected": null
+    },
+    {
+      "id": "c4",
+      "category": "code",
+      "prompt": "SQL: table users(id, email, created_at). Return emails created in 2025 ordered newest first. Query only.",
+      "expected": null
+    },
+    {
+      "id": "j1",
+      "category": "json",
+      "prompt": "Extract as JSON with keys name, amount, currency: \"Invoice from Acme GmbH for 1.250,00 EUR due 2026-11-30\". JSON only.",
+      "expected": null
+    },
+    {
+      "id": "j2",
+      "category": "json",
+      "prompt": "Return JSON {\"sentiment\": ..., \"confidence\": 0-1} for: \"The update broke everything and support never answered.\"",
+      "expected": null
+    },
+    {
+      "id": "j3",
+      "category": "json",
+      "prompt": "Convert to JSON array of {city, temp_c}: \"Madrid 21C, Oslo 4C, Lima 19C\". JSON only.",
+      "expected": null
+    },
+    {
+      "id": "t1",
+      "category": "translation",
+      "prompt": "Translate to English: 'El servidor se cayó a las tres de la mañana y nadie lo notó hasta el desayuno.'",
+      "expected": null
+    },
+    {
+      "id": "t2",
+      "category": "translation",
+      "prompt": "Translate to Spanish: 'The cache is warm, so the first token arrives almost instantly.'",
+      "expected": null
+    },
+    {
+      "id": "t3",
+      "category": "translation",
+      "prompt": "Translate to German: 'Please restart the service before deploying.'",
+      "expected": null
+    },
+    {
+      "id": "t4",
+      "category": "translation",
+      "prompt": "Translate to English: 'Necesito que revises los números del último informe.'",
+      "expected": null
+    },
+    {
+      "id": "s1",
+      "category": "summary",
+      "prompt": "Summarize in exactly one sentence: 'The company reported quarterly revenue of 4.2 million euros, up 18 percent year over year, driven mainly by subscriptions, while hardware sales declined for the third consecutive quarter.'",
+      "expected": null
+    },
+    {
+      "id": "s2",
+      "category": "summary",
+      "prompt": "List the three concrete numbers in: 'Latency dropped from 840 ms to 310 ms after the upgrade, and error rate fell to 0.4 percent.'",
+      "expected": null
+    },
+    {
+      "id": "s3",
+      "category": "summary",
+      "prompt": "Summarize in max 10 words: 'Running 27B parameters on a single 24 GB GPU requires quantized weights and quantized KV cache.'",
+      "expected": null
+    },
+    {
+      "id": "i1",
+      "category": "instruction",
+      "prompt": "Reply with exactly three words, no punctuation.",
+      "expected": null
+    },
+    {
+      "id": "i2",
+      "category": "instruction",
+      "prompt": "Write a sentence about rain that does not contain the letter 'e'.",
+      "expected": null,
+      "custom_check": "answer must not contain the letter 'e'"
+    },
+    {
+      "id": "i3",
+      "category": "instruction",
+      "prompt": "Give exactly 3 bullet points about backups. Use '-' as bullet marker.",
+      "expected": null
+    },
+    {
+      "id": "i4",
+      "category": "instruction",
+      "prompt": "Answer in all uppercase: what is the capital of Portugal?",
+      "expected": "LISBON"
+    },
+    {
+      "id": "f1",
+      "category": "factual",
+      "prompt": "What is the capital of Australia? One word.",
+      "expected": "Canberra"
+    },
+    {
+      "id": "f2",
+      "category": "factual",
+      "prompt": "How many bytes in one gibibyte? Number only.",
+      "expected": "1073741824"
+    },
+    {
+      "id": "f3",
+      "category": "factual",
+      "prompt": "Which is larger: 0.1% of 1000 or 1% of 10? Answer with the larger value only.",
+      "expected": "1"
+    },
+    {
+      "id": "f4",
+      "category": "factual",
+      "prompt": "In what year did the Berlin Wall fall? Year only.",
+      "expected": "1989"
+    },
+    {
+      "id": "l1",
+      "category": "logic",
+      "prompt": "All Bloops are Razzies. All Razzies are Lazzies. Are all Bloops Lazzies? Yes or no.",
+      "expected": "Yes"
+    },
+    {
+      "id": "l2",
+      "category": "logic",
+      "prompt": "If today is Wednesday, what day is it 100 days from now? Day only.",
+      "expected": "Friday"
+    },
+    {
+      "id": "l3",
+      "category": "logic",
+      "prompt": "A is taller than B. C is shorter than B. Who is tallest? Letter only.",
+      "expected": "A"
+    },
+    {
+      "id": "l4",
+      "category": "logic",
+      "prompt": "There are 3 boxes: one has apples, one oranges, one mixed. All labels are wrong. You pick one fruit from the box labeled 'mixed'. It is an apple. What is in the box labeled 'apples'?",
+      "expected": null,
+      "custom_check": "answer must contain 'oranges'"
+    },
+    {
+      "id": "a6",
+      "category": "math",
+      "prompt": "What is 30% of 90? Number only.",
+      "expected": "27"
+    },
+    {
+      "id": "a7",
+      "category": "math",
+      "prompt": "Compute 7/8 as a decimal, 3 decimals. Number only.",
+      "expected": "0.875"
+    },
+    {
+      "id": "a8",
+      "category": "math",
+      "prompt": "Average of 12, 18, 21, 25? Number only.",
+      "expected": "19"
+    },
+    {
+      "id": "a9",
+      "category": "math",
+      "prompt": "How many minutes in 2.75 hours? Number only.",
+      "expected": "165"
+    },
+    {
+      "id": "a10",
+      "category": "math",
+      "prompt": "1000 EUR at 5% simple interest for 3 years: total interest? Number only.",
+      "expected": "150"
+    },
+    {
+      "id": "a11",
+      "category": "math",
+      "prompt": "GCD of 84 and 126? Number only.",
+      "expected": "42"
+    },
+    {
+      "id": "c5",
+      "category": "code",
+      "prompt": "What does `len(set('banana'))` return? Number only.",
+      "expected": "3"
+    },
+    {
+      "id": "c6",
+      "category": "code",
+      "prompt": "What is the output of `print('5' + '3')`? Output only.",
+      "expected": "53"
+    },
+    {
+      "id": "f5",
+      "category": "factual",
+      "prompt": "How many bits in one byte? Number only.",
+      "expected": "8"
+    },
+    {
+      "id": "f6",
+      "category": "factual",
+      "prompt": "What is the chemical symbol for gold? Symbol only.",
+      "expected": "Au"
+    },
+    {
+      "id": "f7",
+      "category": "factual",
+      "prompt": "Which planet is closest to the Sun? One word.",
+      "expected": "Mercury"
+    },
+    {
+      "id": "f8",
+      "category": "factual",
+      "prompt": "How many degrees in a right angle? Number only.",
+      "expected": "90"
+    },
+    {
+      "id": "l5",
+      "category": "logic",
+      "prompt": "If a train travels 120 km in 1.5 hours, what is its speed in km/h? Number only.",
+      "expected": "80"
+    },
+    {
+      "id": "l6",
+      "category": "logic",
+      "prompt": "If no cats are reptiles, and all reptiles are animals, can a cat be an animal? Yes or no.",
+      "expected": "Yes"
+    }
+  ]
+}

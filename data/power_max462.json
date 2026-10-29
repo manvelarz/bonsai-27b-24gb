@@ -1,0 +1,14 @@
+{
+  "label": "max462",
+  "power_limit_w": 462.0,
+  "prompt_tokens": 40016,
+  "ttft_s": 55.43,
+  "prefill_tps": 722,
+  "decode_tps": 13.7,
+  "completion_tokens": 442,
+  "needle_ok": true,
+  "peak_power_w": 440.41,
+  "avg_power_w": 386.6,
+  "peak_sm_mhz": 1950,
+  "seconds": 88.1
+}

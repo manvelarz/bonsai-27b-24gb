@@ -440,6 +440,7 @@ stack behind every measurement above:
 
 - **GPU:** NVIDIA RTX 3090, 24,576 MiB, compute capability 8.6 (Ampere)
 - **Driver / CUDA:** 595.58.03 / CUDA 13.2 (host), CUDA 13.0.2 (container)
+- **Power:** capped at 336 W for every measurement (default 420 W, max 462 W) — Part 9
 - **vLLM image:** `fraserpricee/bonsai-vllm:20260918`, digest
   `sha256:a40d14f5eb218d80984d5009a61262668f9665f2f2946b84bd3c0102f1fc85e9`, vLLM 0.25.1
 - **llama.cpp:** build 10709, commit `9a9394a89`, custom build including the Hadamard
@@ -580,6 +581,32 @@ discarded — so on that engine we score the answer but cannot inspect the reaso
 (llama.cpp keeps it, all 45 prompts). (2) n=30, one seed: this detects a
 large regression, not a 3% one. (3) The original was measured on third-party providers
 we can verify by name but cannot audit.
+
+## Part 9 — Does the power cap matter? (it does not)
+
+Every number above was measured with the card **power-limited to 336 W** — below its
+420 W default and well below its 462 W maximum. That is a fair thing to hold any
+consumer-card benchmark to, so we tested it: identical 40k-token prompt, ~300-word
+answer with a needle, twice at each limit.
+
+| limit | TTFT | prefill | decode | peak power | avg power | peak temp |
+|---|---|---|---|---|---|---|
+| 336 W | 40.1–41.6 s | 962–999 tok/s | 69.4–74.2 tok/s | 335–336 W | 323–327 W | 71–73 °C |
+| 462 W | 39.6 s | 1,011 tok/s | 73.3–75.4 tok/s | 433 W | 405–414 W | 77–78 °C |
+
+Raising the cap by 126 W buys roughly **3% prefill and 3–4% decode** — inside the
+run-to-run spread at either setting. The reason is in the samples: memory clock stayed
+at 9,501 MHz and SM clock at 1,935–1,950 MHz in both cases. Decode on a 27B at this
+quant is memory-bandwidth-bound, and prefill at 40k already fits in the power budget,
+so the extra watts have nowhere useful to go.
+
+Two consequences. **No result in this report is limited by the power cap**, so the
+numbers hold for a stock uncapped 3090 within a few percent. And running capped costs
+nothing while saving ~25% of the power — for a box that infers all day, that is free.
+
+> A method note that belongs here: our first 462 W run reported 58.5 s TTFT (684 tok/s),
+> which would have "proved" that raising the cap *hurts*. Repeats gave 39.6 s twice. That
+> single outlier is the clearest example in this project of why one run is not a measurement.
 
 ## Decision guide
 

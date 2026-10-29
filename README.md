@@ -36,7 +36,7 @@ Same 45-prompt suite (30 verifiable answers), every configuration, thinking pinn
 The 2-bit build loses nothing measurable against the model it was compressed from, at
 either thinking setting. Thinking itself costs ~4x the output tokens. Details, the four
 disagreements and the caveats: [`article.md`](article.md) Part 8; raw results in
-[`data/`](data/).
+[`data/`](data/), and the exact prompts in [`data/prompts.json`](data/prompts.json).
 
 **2026-10-27 update:** vLLM now reaches the native 262k context with 8-bit KV *and*
 speculative decoding on. The earlier "fp8 KV crashes under load" result was a
