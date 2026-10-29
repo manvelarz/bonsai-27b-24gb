@@ -45,10 +45,29 @@ Everything else is his: same pinned commits, same flags, same kernels.
 The first successful compile attempt (MAX_JOBS=10) made this machine **stop responding**; the owner had
 to power-cycle it. Two containers died with the reset (`Exited 255`), losing ~20 min of compile progress.
 
-**Diagnosis (probable, not proven):** 10 parallel `nvcc` jobs against a 32 GB host that already runs
-~20 GB of services, with only 2 GB of swap. Journal storage is not persistent here (`journalctl -b -1`
-returns nothing), so the OOM/lockup evidence died with the reboot. The memory arithmetic is the evidence:
-10 × ~2–3 GB compiler RSS versus ~18 GB free.
+**Diagnosis — what the evidence does and does not show.**
+
+Correction to an earlier entry: the journal *is* persistent (`/var/log/journal` exists); my first read
+failed because `sudo -n journalctl` needs a password and returned nothing. Once read properly:
+
+- **No OOM kill, no kernel panic, no hung-task, no soft lockup, no Xid** in the window before the reset.
+- **Logging stops.** Between 12:38 and 12:46 the journal holds four lines total (pipewire audio warnings);
+  before that the box was writing every few seconds (Telegram polling conflicts, sudo audit, etc.).
+  A chatty system going silent for five minutes means processes were not getting scheduled, not that
+  they were idle.
+- **Build memory peak: 10,369 MB** (cgroup `memory.peak` for `bonsai-build`). With four jobs it sits at
+  5.5 GB. Ten jobs therefore cost ~10.4 GB.
+- **Host: 31 GB RAM, 2 GB swapfile on a SATA SSD, no zram, `systemd-oomd` inactive, `earlyoom` absent,
+  `sysstat` installed but disabled.** So no userspace OOM protection and no historical memory series.
+
+Most likely: 10.4 GB of compiler + ~20 GB of always-on services on a 31 GB box, with 2 GB of swap and
+nothing to intervene, degraded into a reclaim/IO stall that made the machine unresponsive to the owner
+through NoMachine. **Not proven** — the decisive evidence (a memory timeline) was never collected
+because `sysstat` was off, and the kernel never logged an OOM event.
+
+**Mitigations.** MAX_JOBS=4 (measured: 5.5 GB instead of 10.4 GB). Recommended and not yet applied:
+`docker run --memory=12g` so the container dies instead of the host; a 4–8 GB zram device; `earlyoom`;
+and `sudo systemctl enable --now sysstat` so the next incident has data.
 
 **Rule adopted for this box:** `MAX_JOBS=4` for any vLLM/torch CUDA build. Verified after the change:
 22 compiler processes, 12 GB used of 31 GB, 18 GB available.

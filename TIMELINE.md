@@ -189,3 +189,7 @@ speed as before, and better throughput under load. Written into `bonsai vllm`
 - Post-reset: GPU driver intact (595.58.03, display_active Enabled) but the display came back on
   NVIDIA's fallback mode table with **no EDID** — max 1600x900, no 1920x1080/2560x1440. That is the
   graphics change visible through NoMachine.
+- **Hang investigation (post-reset):** no OOM/panic/hung-task/Xid in the journal; journal goes silent
+  for ~5 min before the reset; build container `memory.peak` = 10.4 GB (5.5 GB at MAX_JOBS=4); host is
+  31 GB with a 2 GB swapfile, no zram, `systemd-oomd` inactive, `earlyoom` absent, `sysstat` disabled.
+  Cause not proven — memory timeline was never recorded. Mitigations listed in `akmorley/PROVENANCE.md`.
