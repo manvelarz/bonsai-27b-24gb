@@ -313,3 +313,34 @@ build from source inside `nvidia/cuda:13.0.0-devel-ubuntu24.04`.
 **Status (2026-10-29 12:13):** container build in progress (`bonsai-pq2-akmorley`), tokenizer staged from
 `Qwen/Qwen3.8-27B`. Sweep will run on port 8001 with the existing harnesses
 (`ttft_sweep.py`, `load_sweep.py`, `a2a_test.py`) so the numbers are directly comparable to ours.
+
+### Anthony Morley stack reproduced on our 3090 (2026-10-29)
+
+His stack = GGUF direct in vLLM (7.2 GB) + `akmorley/vllm-prism` + `akmorley/vllm-gguf-plugin-prism`,
+int8_per_token_head KV, TRITON_ATTN, no speculation, --max-num-seqs 16, vLLM 0.25.1.
+Run inside nvidia/cuda:13.0.0-devel + python3.12(-dev) + ninja-build; venv invoked via
+`python -c "from vllm.entrypoints.cli.main import main; main()"`; tokenizer dir needs config.json.
+
+Boot numbers (--max-model-len -1):
+- Available KV cache memory: 13.82 GiB
+- Auto-fit max_model_len: 262144 (full context fits)
+- GPU KV cache size: 429,916 tokens, 1.64x concurrency at 262k
+- => ~34.5 KiB/token int8 vs our fp8 37.2 KiB/token; weights 7.2 GB vs our 9.6 GB repack
+
+Prefill/TTFT (thinking off, needle at end, needle OK everywhere):
+| ctx | his TTFT | his prefill | ours TTFT | ours prefill | ratio |
+|---|---|---|---|---|---|
+| 5k | 2.70 s | 1,848 t/s | 4.09 s | 1,219 | 1.52x |
+| 40k | 23.15 s | 1,728 t/s | 40.06 s | 998 | 1.73x |
+| 110k | 91.94 s | 1,196 t/s | 142.14 s | 774 | 1.55x |
+| 200k | 232.25 s | 861 t/s | 330.09 s | 606 | 1.42x |
+
+Decode (>=350-token outputs only; 9-token sweep decode is the MTP artifact, discarded):
+- solo: his 89.7 vs ours 83.3
+- 2 streams: 101.2 vs 104.5
+- 4 streams: 240.6 vs 253.8 (ours wins)
+- 8 streams: 282.8 (ours not measured)
+- 38k long output: his 76.0 vs ours 67.0 (+13%)
+- medium 350-400 tok: 89.7 vs 91.1 (parity)
+
+Caveat: his published numbers are 3090 Ti @300 W; these are re-measured on our 3090 @336 W.

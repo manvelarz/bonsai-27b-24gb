@@ -5,17 +5,22 @@ Usage: python3 a2a_test.py vllm|llama
 import json, sys, time, urllib.request
 
 BE = sys.argv[1] if len(sys.argv) > 1 else "vllm"
-if BE == "vllm":
-    URL = "http://127.0.0.1:8000/v1/chat/completions"; MODEL = "Bonsai-2-27B"
+if BE != "llama":
+    import os
+    PORT = os.environ.get("BONSAI_PORT", "8000")
+    URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"; MODEL = os.environ.get("BONSAI_MODEL", "Bonsai-2-27B")
+    NOTHINK = os.environ.get("BONSAI_NOTHINK") == "1"
+    CTK = {"enable_thinking": False} if NOTHINK else {}
 else:
     URL = "http://127.0.0.1:8080/v1/chat/completions"
     MODEL = "models/Ternary-Bonsai-2-27B-PQ2_0-MTP-Q8_0.gguf"
+    CTK = {}
 
 def call(prompt, max_tokens, timeout=2400):
     body = {"model": MODEL, "messages": [{"role": "user", "content": prompt}],
             "temperature": 0, "max_tokens": max_tokens, "stream": True,
             "stream_options": {"include_usage": True},
-            "chat_template_kwargs": {"enable_thinking": False}}
+            "chat_template_kwargs": CTK or {"enable_thinking": False}}
     req = urllib.request.Request(URL, data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json"})
     t0 = time.time(); ttft = None; parts = []; usage = {}; err = None

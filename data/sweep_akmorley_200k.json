@@ -1,0 +1,24 @@
+{
+  "label": "akmorley_200k",
+  "port": "8001",
+  "points": [
+    {
+      "target": 110000,
+      "prompt_tokens": 110007,
+      "ttft_s": 91.94,
+      "prefill_tps": 1196.5,
+      "decode_tps": 88.53,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 200000,
+      "prompt_tokens": 199987,
+      "ttft_s": 232.25,
+      "prefill_tps": 861.1,
+      "decode_tps": 78.62,
+      "ctok": 9,
+      "needle_ok": true
+    }
+  ]
+}

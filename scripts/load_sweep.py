@@ -12,8 +12,10 @@ from concurrent.futures import ThreadPoolExecutor
 LABEL = sys.argv[1] if len(sys.argv) > 1 else "run"
 LEVELS = [int(x) for x in (sys.argv[2] if len(sys.argv) > 2 else "2,4").split(",")]
 PORT = os.environ.get("BONSAI_PORT", "8000")
+NOTHINK = os.environ.get("BONSAI_NOTHINK") == "1"
+CTK = {"enable_thinking": False} if NOTHINK else {}
 URL = f"http://127.0.0.1:{PORT}/v1/chat/completions"
-MODEL = "Bonsai-2-27B"
+MODEL = os.environ.get("BONSAI_MODEL", "Bonsai-2-27B")
 OUT = pathlib.Path(__file__).parent
 
 
@@ -22,6 +24,7 @@ def stream_call(prompt, max_tokens=400, timeout=600):
         "model": MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "temperature": 0, "top_p": 1.0, "max_tokens": max_tokens, "seed": 0,
+        "chat_template_kwargs": CTK,
         "stream": True, "stream_options": {"include_usage": True},
         "chat_template_kwargs": {"enable_thinking": False},
     }).encode()

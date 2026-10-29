@@ -193,3 +193,7 @@ speed as before, and better throughput under load. Written into `bonsai vllm`
   for ~5 min before the reset; build container `memory.peak` = 10.4 GB (5.5 GB at MAX_JOBS=4); host is
   31 GB with a 2 GB swapfile, no zram, `systemd-oomd` inactive, `earlyoom` absent, `sysstat` disabled.
   Cause not proven — memory timeline was never recorded. Mitigations listed in `akmorley/PROVENANCE.md`.
+- **2026-10-29 — Morley stack reproduced.** Built his forks (Containerfile needs python3.12-dev;
+  runtime needs python3.12-dev + ninja + CUDA toolkit for FlashInfer/JIT). Full 262,144 context fits,
+  429,916 KV tokens (1.64x). Prefill 1.4-1.7x faster than ours; long-context decode +13%; ours wins
+  4-stream batching. Documented as Part 10.

@@ -4,13 +4,15 @@
 Same filler, same needle at the end, same settings for every backend.
 Usage: python3 ttft_sweep.py <label> <port> [5000,40000,110000]
 """
-import json, sys, time, urllib.request, pathlib, uuid
+import json, os, sys, time, urllib.request, pathlib, uuid
 
 LABEL = sys.argv[1]
+MODEL = os.environ.get("BONSAI_MODEL", "Bonsai-2-27B")
+NOTHINK = os.environ.get("BONSAI_NOTHINK") == "1"
+CTK = {"enable_thinking": False} if NOTHINK else {}
 PORT = sys.argv[2] if len(sys.argv) > 2 else "8000"
 CTX = [int(x) for x in (sys.argv[3] if len(sys.argv) > 3 else "5000,40000,110000").split(",")]
 BASE = f"http://127.0.0.1:{PORT}/v1"
-MODEL = "Bonsai-2-27B"
 
 FILLER = ("The archive room holds paper records from a shipping company. "
           "Each folder describes a voyage, its cargo and its crew. ")
@@ -43,6 +45,7 @@ def stream_call(prompt):
     body = json.dumps({"model": MODEL,
                        "messages": [{"role": "user", "content": prompt}],
                        "temperature": 0.0, "max_tokens": 40, "seed": 42, "stream": True,
+                       "chat_template_kwargs": CTK,
                        "stream_options": {"include_usage": True},
                        "chat_template_kwargs": {"enable_thinking": False}}).encode()
     req = urllib.request.Request(BASE + "/chat/completions", data=body, headers={"Content-Type": "application/json"})

@@ -1,0 +1,81 @@
+{
+  "label": "akmorley",
+  "solo": {
+    "ttft": 0.13,
+    "total": 4.2,
+    "ctok": 366,
+    "ptok": 28,
+    "tps": 89.7,
+    "err": null,
+    "words": 284
+  },
+  "levels": {
+    "2": {
+      "n": 2,
+      "wall_s": 6.92,
+      "total_ctok": 700,
+      "aggregate_tps": 101.2,
+      "per_stream_tps": [
+        79.7,
+        79.7
+      ],
+      "ttft_s": [
+        2.52,
+        2.52
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    },
+    "4": {
+      "n": 4,
+      "wall_s": 5.89,
+      "total_ctok": 1417,
+      "aggregate_tps": 240.6,
+      "per_stream_tps": [
+        75.8,
+        75.9,
+        75.9,
+        76.4
+      ],
+      "ttft_s": [
+        1.13,
+        1.13,
+        1.13,
+        1.13
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    },
+    "8": {
+      "n": 8,
+      "wall_s": 10.03,
+      "total_ctok": 2835,
+      "aggregate_tps": 282.8,
+      "per_stream_tps": [
+        73.1,
+        74.3,
+        74.3,
+        74.4,
+        75.8,
+        75.9,
+        75.9,
+        76.1
+      ],
+      "ttft_s": [
+        0.32,
+        0.32,
+        0.32,
+        0.32,
+        5.17,
+        5.17,
+        5.17,
+        5.42
+      ],
+      "errors": 0,
+      "error_sample": null,
+      "health_after": 200
+    }
+  }
+}

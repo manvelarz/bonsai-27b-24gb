@@ -650,6 +650,101 @@ nothing while saving ~25% of the power — for a box that infers all day, that i
 
 ---
 
+## Part 10 — Reproducing Anthony Morley's GGUF-native stack on a plain 3090
+
+[Anthony Morley](https://anthonymorley.com/projects/prism/running-it-locally) reports
+running the same model on a 3090 Ti at 300 W and beating every number in Parts 3–7:
+97.4 t/s solo, 2,297 t/s prefill at 1k, ~2,015 t/s at 16k, and no speculative decoding
+at all. Rather than argue with the numbers, we reproduced his stack on our 336 W 3090
+to see how much of the gap is his kernels and how much is the GGUF-native path.
+
+**His stack is different from ours in every layer.** We serve an HF repack
+(~9.6 GB) through `prism-ternary 0.1.0` with fp8 KV and MTP depth 3 at
+`--max-num-seqs 64`. He loads the **GGUF directly** (7.2 GB) via two forks —
+`akmorley/vllm-prism` and `akmorley/vllm-gguf-plugin-prism` — with `int8_per_token_head`
+KV, `TRITON_ATTN`, no speculation, `--max-num-seqs 16`, and his own Triton/Gluon kernels
+replacing ~930 lines of CUDA. Both run on vLLM 0.25.1.
+
+### Getting it to boot: four undocumented gaps
+
+His published `Containerfile` does not build as-is, and the failures are sequential:
+each fix reveals the next, because the image is missing the *developer* half of Python.
+
+| # | Failure | Cause | Fix |
+|---|---|---|---|
+| 1 | `CMake ... -DVLLM_PYTHON_EXECUTABLE=/opt/bonsai/.venv/bin/python` → exit 1 | no Python headers in the image | add `python3.12-dev` |
+| 2 | `Could not find nvcc and default cuda_home='/usr/local/cuda' doesn't exist` | FlashInfer JIT needs a toolkit **at runtime**, not just at build time | run inside `nvidia/cuda:13.0.0-devel` |
+| 3 | `fatal error: Python.h: No such file or directory` | his fork JIT-compiles a CUDA extension on import | `python3.12-dev` in the runtime image too |
+| 4 | `FileNotFoundError: 'ninja'` | JIT build driver missing | `ninja-build` |
+
+Two smaller ones: the venv's console script shebang points at the *container* path, so
+`vllm` is not executable outside it (we invoke `python -c "from vllm.entrypoints.cli.main
+import main; main()"`); and the tokenizer directory needs `config.json` from the base
+repo, not just the tokenizer files. Nothing about this is hidden — it is simply not in
+the published files.
+
+### The context question
+
+He asked what context a 3090 actually reaches. On his stack, with `--max-model-len -1`:
+
+```
+Available KV cache memory: 13.82 GiB
+Auto-fit max_model_len: full model context length 262144 fits
+GPU KV cache size: 429,916 tokens, Maximum concurrency for 262,144 tokens: 1.64x
+```
+
+**The full 262,144 fits with 1.64× concurrency** — no truncation, no fallback. That is
+429,916 KV tokens versus our 294,362 (1.12×). His int8 per-token-head cache costs
+about **34.5 KiB/token** against our fp8 **37.2 KiB/token**, and his weights are 7.2 GB
+against our 9.6 GB repack — which is the whole difference.
+
+### Measured on the same card (RTX 3090, 336 W, thinking off)
+
+Prefill and TTFT, cache-busted prompts with the needle at the end:
+
+| context | his TTFT | his prefill | our TTFT | our prefill | prefill ratio |
+|---|---|---|---|---|---|
+| 5k | **2.70 s** | **1,848 t/s** | 4.09 s | 1,219 t/s | 1.52× |
+| 40k | **23.15 s** | **1,728 t/s** | 40.06 s | 998 t/s | 1.73× |
+| 110k | **91.94 s** | **1,196 t/s** | 142.14 s | 774 t/s | 1.55× |
+| 200k | **232.25 s** | **861 t/s** | 330.09 s | 606 t/s | 1.42× |
+
+Needle retrieved at every length in both stacks. Decode in those sweeps is not
+comparable — 9-token outputs plus MTP inflate our figure to 167–291 t/s, the exact
+artifact flagged in Part 5 — so decode below comes only from ≥350-token generations.
+
+Concurrency (400-token outputs):
+
+| streams | his aggregate | ours | per-stream (his) |
+|---|---|---|---|
+| 1 | **89.7 t/s** | 83.3 | 89.7 |
+| 2 | 101.2 | 104.5 | 79.7 |
+| 4 | 240.6 | **253.8** | 75.8–76.4 |
+| 8 | 282.8 | not measured | 73.1–76.1 |
+
+Long output at 38k prompt: **76.0 t/s** (his) versus 67.0 (ours), +13%. Medium
+350–400-token answers: 89.7 versus 91.1 — a dead heat.
+
+### What this means
+
+His stack is **1.4–1.7× faster at prefill and TTFT**, holds **+13% at long-context
+decode**, and carries **46% more KV tokens** in less VRAM. Our MTP depth 3 does not
+compensate — it was tuned to win at short outputs, and it does not win at 38k.
+
+Where ours still holds: **4-stream batching** (253.8 vs 240.6 aggregate), i.e. the
+default `--max-num-seqs 64` scheduling still trades a little latency for throughput
+once concurrency rises. And the fair-comparison caveat: his reference numbers come from
+a **3090 Ti at 300 W**, ours from a **3090 at 336 W** — not identical silicon, which is
+why we re-measured everything on our own card for this table rather than quoting his.
+
+The honest reading: the prefill gap is the kernels and the GGUF-native loader. It is
+not a tuning difference, and no flag we found closes it.
+
+Raw data: `data/sweep_akmorley.json`, `data/sweep_akmorley_200k.json`,
+`data/load_akmorley.json`, `data/a2a_ak.json`.
+
+---
+
 ## Credits
 
 This work builds entirely on other people's work; full attribution with links is in

@@ -1,0 +1,24 @@
+{
+  "label": "akmorley",
+  "port": "8001",
+  "points": [
+    {
+      "target": 5000,
+      "prompt_tokens": 4992,
+      "ttft_s": 2.7,
+      "prefill_tps": 1848.5,
+      "decode_tps": 99.82,
+      "ctok": 9,
+      "needle_ok": true
+    },
+    {
+      "target": 40000,
+      "prompt_tokens": 39996,
+      "ttft_s": 23.15,
+      "prefill_tps": 1727.5,
+      "decode_tps": 95.65,
+      "ctok": 9,
+      "needle_ok": true
+    }
+  ]
+}
