@@ -275,3 +275,41 @@ return it empty on 45/45 (chain generated, discarded).
 - KV pool varies per boot: 262,144 / 294,362 (fp8), 128,392 / 144,982 (bf16) → quote ranges.
 - The image entrypoint hardcodes `num_speculative_tokens: 7`; docker-run args override it
   (vLLM logs `Found duplicate keys`). Verify the depth by fingerprint before publishing numbers.
+
+
+---
+
+## 2026-10-29 — reproducing akmorley's stack (external comparison)
+
+**Trigger:** Anthony Morley published a 10-chapter investigation, "Making a ternary reasoning
+model fast in vLLM" (https://anthonymorley.com/projects/prism), with his own forks of vLLM and
+the GGUF plugin plus Triton/Gluon replacements for ~930 lines of CUDA. His numbers beat ours on
+the same GPU family, so we are reproducing his stack here rather than arguing from our own.
+
+| | ours (3090, 336 W, fraserprice image) | his (3090 Ti, 300 W, own forks) |
+|---|---|---|
+| weights | HF repack `fraserprice/Ternary-Bonsai-2-27B-vllm`, 9.6 GB | `Ternary-Bonsai-2-27B-PQ2_0.gguf`, 7.2 GB, loaded directly |
+| plugin | `prism-ternary 0.1.0` | `akmorley/vllm-gguf-plugin-prism` + `vllm-prism` (Triton/Gluon kernels) |
+| KV | `fp8_e4m3` | `int8_per_token_head` |
+| speculation | MTP n=3 | none (DFlash optional) |
+| decode 1 req | 82.7 tok/s | 97.4 tok/s |
+| decode 4 req | 253.8 agg | 318.4 agg |
+| decode 16 req | not tested | 689.6 agg |
+| prefill | 1,219 @5k, 998 @40k, 606 @200k | 2,297 @1k, 2,173 @4k, 2,015 @16k |
+| quality check | 45-prompt suite (28/30 off, 30/30 on) | GSM8K 120/128, 127/128 answers identical across kernels |
+
+**What we reproduce, verbatim:** `install.sh`, `serve.sh`, `Containerfile` from the guide, saved in
+`akmorley/` with `PROVENANCE.md` (pinned commits: plugin `7520fd9b`, fork `d463094f`, branch
+`dflash-quantized-context-kv`). Deviations recorded there, none yet.
+
+**Environment differences to keep in mind:** plain 3090 vs 3090 Ti (~8% bandwidth), 336 W vs 300 W,
+build from source inside `nvidia/cuda:13.0.0-devel-ubuntu24.04`.
+
+**Open questions**
+1. `--max-model-len -1` — what context does his stack actually pick on a 24 GB 3090?
+2. Does 97 tok/s / 2,300 tok/s prefill reproduce without a Ti and without his tuning session?
+3. Does MTP compound with his kernels, or is DFlash the better pairing?
+
+**Status (2026-10-29 12:13):** container build in progress (`bonsai-pq2-akmorley`), tokenizer staged from
+`Qwen/Qwen3.8-27B`. Sweep will run on port 8001 with the existing harnesses
+(`ttft_sweep.py`, `load_sweep.py`, `a2a_test.py`) so the numbers are directly comparable to ours.

@@ -172,3 +172,13 @@ speed as before, and better throughput under load. Written into `bonsai vllm`
 | 262k needs bf16 KV (28.6 GiB) | No — fp8 KV fits in 9.7 GiB | 262,144-token pool measured |
 | Long-context decode must be slow in vLLM | Partly — llama.cpp still leads at depth | 60.7 vs 29.7 tok/s at 38k (bf16 vLLM) |
 | Image/vision input is available | No — text-only release | 0 vision tensors; engine logs text-only mode |
+
+## 2026-10-29
+- Read akmorley's 10-chapter write-up (guide + CUDA checkpoint + Triton/Gluon final).
+- Verdict recorded: his implementation is faster (97.4 vs 82.7 solo, 2,297 vs 1,219 prefill @1k)
+  and it is a different weight format, plugin and KV scheme — not a tuning difference.
+- Fetched his code blocks verbatim into `akmorley/` + `PROVENANCE.md` (pinned revisions).
+- Confirmed we already had `Ternary-Bonsai-2-27B-PQ2_0.gguf` (6.8 GB) locally.
+- Staged `Qwen/Qwen3.8-27B` tokenizer files into `models/qwen38-tokenizer` (his serve.sh needs them).
+- Started `docker build -t bonsai-pq2-akmorley` from his Containerfile (CUDA 13.0 devel, vLLM built
+  from source at his commits).
