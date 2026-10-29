@@ -1,0 +1,17 @@
+{
+  "label": "cpu_probe",
+  "power_limit_w": 336.0,
+  "prompt_tokens": 40020,
+  "ttft_s": 40.0,
+  "prefill_tps": 1000,
+  "decode_tps": 78.6,
+  "completion_tokens": 393,
+  "needle_ok": true,
+  "peak_power_w": 336.26,
+  "avg_power_w": 319.0,
+  "peak_sm_mhz": 1920,
+  "avg_mem_mhz": 9333,
+  "peak_temp_c": 69,
+  "avg_util_pct": 96,
+  "seconds": 45.2
+}

@@ -591,11 +591,12 @@ answer with a needle, twice at each limit.
 
 | limit | TTFT | prefill | decode | peak power | avg power | peak temp |
 |---|---|---|---|---|---|---|
-| 336 W | 40.1–41.6 s | 962–999 tok/s | 69.4–74.2 tok/s | 335–336 W | 323–327 W | 71–73 °C |
+| 336 W | 39.9–41.6 s | 962–1003 tok/s | 69.4–76.2 tok/s | 335–336 W | 319–327 W | 68–73 °C |
 | 462 W | 39.6 s | 1,011 tok/s | 73.3–75.4 tok/s | 433 W | 405–414 W | 77–78 °C |
 
-Raising the cap by 126 W buys roughly **3% prefill and 3–4% decode** — inside the
-run-to-run spread at either setting. The reason is in the samples: memory clock stayed
+Raising the cap by 126 W buys **under 2% prefill (1,003 → 1,011 tok/s) and nothing
+measurable in decode** — the two clean 336 W runs decode at 74.2 and 76.2 tok/s, the
+462 W runs at 73.3 and 75.4. The reason is in the samples: memory clock stayed
 at 9,501 MHz and SM clock at 1,935–1,950 MHz in both cases. Decode on a 27B at this
 quant is memory-bandwidth-bound, and prefill at 40k already fits in the power budget,
 so the extra watts have nowhere useful to go.
@@ -604,9 +605,20 @@ Two consequences. **No result in this report is limited by the power cap**, so t
 numbers hold for a stock uncapped 3090 within a few percent. And running capped costs
 nothing while saving ~25% of the power — for a box that infers all day, that is free.
 
-> A method note that belongs here: our first 462 W run reported 58.5 s TTFT (684 tok/s),
-> which would have "proved" that raising the cap *hurts*. Repeats gave 39.6 s twice. That
-> single outlier is the clearest example in this project of why one run is not a measurement.
+> A method note that belongs here. Our first 462 W run reported 58.5 s TTFT (684 tok/s),
+> which would have "proved" that raising the cap *hurts*. Repeats gave 39.6 s twice. The
+> cause was not thermal and not the limit: **a second copy of the same benchmark was
+> running against the same engine**, because a command that failed at `sudo` kept going
+> and was backgrounded. On an otherwise idle card, utilization sits at a steady 96–97%
+> and results repeat to within 1%. If you benchmark a server you also use, competing
+> processes — not power or heat — are the failure mode you will actually hit.
+>
+> Related, and worth knowing before you panic at `top`: during every run **one CPU core
+> sits at ~110%**. That is vLLM's `EngineCore` doing per-token scheduling, sampling and
+> detokenization in Python — normal, not a leak, and the GPU stays at 96–97% utilization
+> throughout. Its cost is amortized by batching: single-stream decode tops out near
+> 74–79 tok/s, while four concurrent streams reach 254 tok/s aggregate. llama.cpp shows
+> far less per-token CPU work, which is part of why it stays close to vLLM at one stream.
 
 ## Decision guide
 

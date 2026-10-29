@@ -1,0 +1,17 @@
+{
+  "label": "clean336_d",
+  "power_limit_w": 336.0,
+  "prompt_tokens": 40015,
+  "ttft_s": 39.9,
+  "prefill_tps": 1003,
+  "decode_tps": 74.2,
+  "completion_tokens": 341,
+  "needle_ok": true,
+  "peak_power_w": 335.85,
+  "avg_power_w": 326.1,
+  "peak_sm_mhz": 1920,
+  "avg_mem_mhz": 9501,
+  "peak_temp_c": 70,
+  "avg_util_pct": 97,
+  "seconds": 44.7
+}

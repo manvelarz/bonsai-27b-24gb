@@ -26,7 +26,7 @@
 
 **What 2-bit costs.** Same 45 prompts through the original Qwen3.8-27B on a pinned provider: 28/30 both, 0.81 text agreement. The disagreements were a wash — the full-precision model short-circuited `(47×13)−(96/4)` to 605 and the ternary one worked it out to 587; the ternary one then flubbed `'5' + '3'` where the original got it. With thinking on, **both** go to 30/30 — so thinking mode, not precision, is what separates 28/30 from 30/30, and it costs ~4× the output tokens.
 
-**One thing we were wrong to worry about: the power cap.** Our card is limited to 336 W (default 420, max 462). Same 40k prompt, two runs at each limit: raising it to 462 W bought ~3% prefill and 3–4% decode, with memory clock unchanged at 9,501 MHz — decode at this quant is bandwidth-bound, so the watts have nowhere to go. **Every number below was measured at 336 W**, so they hold for a stock uncapped 3090 too. And if you're leaving a box inferring all day, running capped costs nothing and saves ~25% of the power.
+**One thing we were wrong to worry about: the power cap.** Our card is limited to 336 W (default 420, max 462). Same 40k prompt, two runs at each limit: raising it to 462 W bought under 2% prefill and nothing measurable in decode, with memory clock unchanged at 9,501 MHz — decode at this quant is bandwidth-bound, so the watts have nowhere to go. **Every number below was measured at 336 W**, so they hold for a stock uncapped 3090 too. And if you're leaving a box inferring all day, running capped costs nothing and saves ~25% of the power.
 
 **Three measurement traps** (this is the part I'd want someone to tell me):
 
