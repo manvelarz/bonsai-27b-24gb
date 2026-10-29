@@ -36,7 +36,7 @@
 
 **What it's actually good for.** 262k with a 5-minute time-to-first-token is not a chat interface. It's for batch extraction, whole-repo analysis, long-document retrieval — jobs where you send one huge prompt and wait. For interactive use, 38k at 67 tok/s is the sweet spot; for multi-user serving, vLLM's batching is the whole ballgame (254 vs 64 tok/s at four streams).
 
-**Thanks** — this setup follows the vLLM flag combination that **u/live4evrr** posted in r/LocalLLaMA (fp8 KV + MTP speculative decoding + `qwen3_coder` tool parser at 262k), which is what pointed us at the right shape in the first place. Also worth reading: **u/Fancy-Snow7**'s independent quality/needle numbers on the same PQ2_0 quant, and **u/Creative-Regular6799**'s Terminal-Bench run — both conclusions line up with what we measured here.
+**Thanks** — **u/Major_Border149** in r/LocalLLM, whose comment is where this whole line of enquiry came from. Also **u/live4evrr** in r/LocalLLaMA, whose vLLM benchmark post supplies the flag combination we run (fp8 KV + MTP + `qwen3_coder` at 262k), and **u/Fancy-Snow7** plus **u/Creative-Regular6799**, whose independent numbers on the same quant are worth reading alongside ours.
 
 **Honest limits:** one card, one model, one image build. Single-run concurrency numbers. 30 verifiable answers is a smoke test, not a benchmark suite. No tool-calling or multi-turn tests yet. All of the above is in the write-up, including the cells I couldn't fill.
 

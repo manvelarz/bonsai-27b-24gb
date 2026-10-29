@@ -35,6 +35,13 @@ This work stands on other people's work. Full attribution, with links:
 - **Docker** + **NVIDIA Container Toolkit** — vLLM image runtime.
 - **Hugging Face Hub** — model weights and caching.
 
+## Community
+- **u/Major_Border149** (r/LocalLLM) — a comment there is where this line of enquiry started.
+- **u/live4evrr** (r/LocalLLaMA) — vLLM benchmark post; source of the flag combination used here
+  (fp8 KV + MTP speculative decoding + `qwen3_coder` parser at 262,144 context).
+- **u/Fancy-Snow7**, **u/Creative-Regular6799** (r/LocalLLaMA) — independent quality and
+  Terminal-Bench results on the same quant.
+
 ## Hardware / platform
 - **NVIDIA RTX 3090 (24 GB, sm_86)** — the card every number here is measured on.
   Note: upstream documents the image as tested on RTX PRO 6000 (Blackwell) only;

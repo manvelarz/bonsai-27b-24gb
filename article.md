@@ -653,7 +653,10 @@ nothing while saving ~25% of the power — for a box that infers all day, that i
 ## Credits
 
 This work builds entirely on other people's work; full attribution with links is in
-[`CREDITS.md`](CREDITS.md). In short:
+[`CREDITS.md`](CREDITS.md). Two community pointers deserve naming: **u/Major_Border149**
+in r/LocalLLM, whose comment is where this line of enquiry started, and **u/live4evrr**
+in r/LocalLLaMA, whose vLLM benchmark post supplied the flag combination used here.
+In short:
 
 - **Model:** Ternary-Bonsai-2-27B by [Prism ML](https://prismml.com/) — ternary
   (~2-bit) weights, based on the **Qwen3.8-27B** architecture from the Qwen team
