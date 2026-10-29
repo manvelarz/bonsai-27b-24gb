@@ -182,3 +182,10 @@ speed as before, and better throughput under load. Written into `bonsai vllm`
 - Staged `Qwen/Qwen3.8-27B` tokenizer files into `models/qwen38-tokenizer` (his serve.sh needs them).
 - Started `docker build -t bonsai-pq2-akmorley` from his Containerfile (CUDA 13.0 devel, vLLM built
   from source at his commits).
+
+- **2026-10-29 13:29 host incident:** MAX_JOBS=10 build hung the machine (32 GB host, ~20 GB services, 2 GB swap);
+  colleague power-cycled it. Both bonsai containers exited 255. Resumed from the surviving venv with
+  MAX_JOBS=4 (12 GB used, 18 GB available) and documented the rule in `akmorley/PROVENANCE.md`.
+- Post-reset: GPU driver intact (595.58.03, display_active Enabled) but the display came back on
+  NVIDIA's fallback mode table with **no EDID** — max 1600x900, no 1920x1080/2560x1440. That is the
+  graphics change visible through NoMachine.

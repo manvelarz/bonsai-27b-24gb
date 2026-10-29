@@ -24,4 +24,34 @@ comparison is not apples to apples until his stack runs on this 3090.
 3. Does MTP compound with his kernels, or is DFlash (his speculative path) the better pairing?
 
 ## Local deviations
-(none yet)
+
+**2026-10-29 12:32 — `python3.12-dev` missing from the published Containerfile.** The documented build fails at
+CMake configure:
+`Could NOT find Python (missing: Python_INCLUDE_DIRS Interpreter Development.Module Development.SABIModule)`
+→ `CMake Error at cmake/utils.cmake:10: Unable to find python matching: /opt/bonsai/.venv/bin/python`.
+The Containerfile installs `python3` and `python3-venv` but not the headers, so `find_python_from_executable`
+cannot resolve the interpreter. Failure occurs before any CUDA compilation, so it costs ~2 min, not an hour.
+
+Fixes applied, in this order (each one only exposed the next):
+1. `apt-get install python3.12-dev`  → headers present at `/usr/include/python3.12/Python.h`
+2. `UV_VENV_CLEAR=1` (and remove `.venv`) → the failed run leaves a venv that `uv venv` refuses to overwrite
+   (`error: Failed to create virtual environment`, exit 2).
+3. Re-clone the three repos (they were left in a half-checked state by the earlier run).
+
+Everything else is his: same pinned commits, same flags, same kernels.
+
+## Host incident — 2026-10-29 13:29
+
+The first successful compile attempt (MAX_JOBS=10) made this machine **stop responding**; the owner had
+to power-cycle it. Two containers died with the reset (`Exited 255`), losing ~20 min of compile progress.
+
+**Diagnosis (probable, not proven):** 10 parallel `nvcc` jobs against a 32 GB host that already runs
+~20 GB of services, with only 2 GB of swap. Journal storage is not persistent here (`journalctl -b -1`
+returns nothing), so the OOM/lockup evidence died with the reboot. The memory arithmetic is the evidence:
+10 × ~2–3 GB compiler RSS versus ~18 GB free.
+
+**Rule adopted for this box:** `MAX_JOBS=4` for any vLLM/torch CUDA build. Verified after the change:
+22 compiler processes, 12 GB used of 31 GB, 18 GB available.
+
+**What survived the reset:** the container's venv and torch 2.13.0+cu130 (no re-download), the three
+repos at their pinned commits, and the GGUF + Qwen tokenizer on the host mount.
