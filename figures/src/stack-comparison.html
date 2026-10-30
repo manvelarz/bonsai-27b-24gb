@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { background:#0d1117; color:#e6edf3; font-family: 'DejaVu Sans', sans-serif; margin:0; padding:18px; }
+  h2 { font-size:24px; color:#7ee787; margin:6px 0 10px; }
+  #d1, #d2 { background:#0d1117; } svg { padding:10px 0 0 6px; }
+</style>
+</head>
+<body>
+<h2>Ternary-Bonsai-2-27B on one RTX 3090 — what we have vs what he built</h2>
+<div id="d1"></div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({
+  startOnLoad:false, theme:'dark', securityLevel:'loose',
+  themeVariables:{ fontSize:'16px', fontFamily:'DejaVu Sans' },
+  flowchart:{ htmlLabels:true, nodeSpacing:38, rankSpacing:55, curve:'basis' }
+});
+const src = `
+flowchart TB
+  subgraph OURS["OUR STACK · fraserprice image · vLLM 0.25.1"]
+    direction TB
+    O0["OpenAI API 127.0.0.1:8000"]
+    O1["vLLM 0.25.1 · full CUDA graphs<br/>native 262,144 ctx · boots 60-90 s"]
+    O2["prism_ternary plugin<br/>prebuilt CUDA kernels (no JIT)"]
+    O3["Weights: HF repack safetensors<br/>9.28 GiB"]
+    O4["KV cache: fp8_e4m3<br/>37.2 KiB/token · pool 294,362 tok = 1.12x"]
+    O5["Speculation: MTP-3<br/>bf16 MTP head lifted from Qwen3.8-27B<br/>inside the same weights"]
+    O0-->O1
+    O1-->O2-->O3
+    O1-->O4
+    O1-->O5
+  end
+
+  subgraph HIS["HIS STACK · akmorley forks · vLLM +7 commits"]
+    direction TB
+    H0["OpenAI API 127.0.0.1:8001"]
+    H1["vLLM fork (7 commits: dflash, mtp, attn)<br/>auto-fit 262,144 ctx · boots ~310 s"]
+    H2["Isotr0py GGUF plugin (Apache-2.0)<br/>+ HIS ternary path: 2,796 lines Triton/Gluon"]
+    H3["Weights: PQ2 ternary GGUF<br/>7.2 GB"]
+    H4["KV cache: int8_per_token_head<br/>34.5 KiB/token · pool 429,916 tok = 1.64x"]
+    H5["Speculation: NONE in our runs<br/>speculative_config=None<br/>MTP attempt dies in speculator"]
+    H0-->H1
+    H1-->H2-->H3
+    H1-->H4
+    H1-->H5
+  end
+`;
+const src2 = `
+flowchart LR
+  A["prompt 40k tokens"] --> B["PREFILL<br/>matmul over the WEIGHTS"]
+  B --> C{"kernel used"}
+  C -->|"ours: CUDA prism_ternary"| D["998 t/s<br/>40.06 s"]
+  C -->|"his: INT8 tensor-core prefill<br/>+ adaptive tiles + Gluon ports"| E["1,728 t/s<br/>23.15 s"]
+  D --> F["1.73x faster on his side"]
+  E --> F
+  F --> G["KV dtype NOT involved here<br/>cache is nearly empty during prefill"]
+  H["decode: reading KV every token"] --> I["his int8 layout helps:<br/>37.2 to 34.5 KiB/token"]
+  I --> J["+8% solo decode, +13% at 38k output"]
+  J --> K["but also: smaller weights free VRAM<br/>13.82 vs 10.45 GiB pool"]
+`;
+Promise.all([
+  mermaid.render('g1', src).then(r=>{document.getElementById('d1').innerHTML=r.svg;}),
+  mermaid.render('g2', src2).then(r=>{const d=document.createElement('div');d.id='d2';d.innerHTML=r.svg;document.body.appendChild(d);})
+]).then(()=>{window.__done=true;});
+</script>
+</body>
+</html>
