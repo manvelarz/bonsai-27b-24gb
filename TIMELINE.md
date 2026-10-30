@@ -197,3 +197,8 @@ speed as before, and better throughput under load. Written into `bonsai vllm`
   runtime needs python3.12-dev + ninja + CUDA toolkit for FlashInfer/JIT). Full 262,144 context fits,
   429,916 KV tokens (1.64x). Prefill 1.4-1.7x faster than ours; long-context decode +13%; ours wins
   4-stream batching. Documented as Part 10.
+- **2026-10-30 — MTP attempt on his stack.** MTP draft loads and the speculator runs, then
+  `torch.compile` fails on a zero-width `split`: the GGUF `nextn` block ships only 4 tensors
+  (eh_proj + 3 norms), so the MTP head shares the backbone body and the adapter assumes a
+  self-contained block. Four blockers fixed first (draft config path, `qwen3_5_mtp` registration,
+  architecture mapping, 54 MB trimmed draft). Details: `akmorley/MTP_ATTEMPT.md`.
