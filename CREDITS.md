@@ -21,6 +21,23 @@ This work stands on other people's work. Full attribution, with links:
 - **FlashInfer** — [flashinfer-ai](https://github.com/flashinfer-ai/flashinfer):
   attention kernels used for the fp8-KV experiments.
 
+## GGUF-native vLLM path (Part 10)
+- **Isotr0py / vLLM project** — [vllm-project/vllm-gguf-plugin](https://github.com/vllm-project/vllm-gguf-plugin)
+  (Apache-2.0, maintained by Isotr0py, a vLLM contributor). Out-of-tree GGUF
+  quantization plugin written after in-tree GGUF support was deprecated
+  ([vllm#39583](https://github.com/vllm-project/vllm/issues/39583)). The Triton
+  dequantize backend and the plugin scaffolding are this project's work — by line
+  count, roughly two thirds of the `triton/` tree.
+- **Anthony Morley** — [akmorley/vllm-gguf-plugin-prism](https://github.com/akmorley/vllm-gguf-plugin-prism)
+  and [akmorley/vllm-prism](https://github.com/akmorley/vllm-prism). His additions on top of
+  the plugin are the ternary-specific path: PQ2 decode kernels, per-architecture kernel
+  tables, INT8 tensor-core prefill, split-KV INT8 per-token-head attention, and the
+  Triton/Gluon ports (16 commits, Oct 2026). In the vLLM fork he carries 7 commits
+  (`qwen3_dflash.py`, `qwen3_5_mtp.py`, per-token-head Triton attention, KV-cache group size).
+  His int8-KV kernel states in its own docstring that it "follows llama.cpp's quantised-KV
+  vector kernel (`fattn-vec`)"; the Q8_1/Q8 paths explicitly disclaim bit-exact equivalence
+  with llama.cpp.
+
 ## llama.cpp path
 - **ggml-org / llama.cpp** — [ggml-org/llama.cpp](https://github.com/ggml-org/llama.cpp):
   `llama-server`, OpenAI-compatible API, `--kv-unified`, KV-cache quantization
