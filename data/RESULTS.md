@@ -344,3 +344,20 @@ Decode (>=350-token outputs only; 9-token sweep decode is the MTP artifact, disc
 - medium 350-400 tok: 89.7 vs 91.1 (parity)
 
 Caveat: his published numbers are 3090 Ti @300 W; these are re-measured on our 3090 @336 W.
+
+## Quality of the int8-KV stack (45 prompts, same script, same GPU)
+Run 2026-11-01, his engine on :8001 (PQ2_0 GGUF backbone, int8_per_token_head KV, no speculation),
+scored against our saved fp8+MTP3 eval files on the **same 28 verifiable prompts** (a1 expectation
+corrected to 587; the old sheet said 515).
+
+| config | thinking off | thinking on |
+|---|---|---|
+| our stack (fp8 KV + MTP-3) | 25/28 | 28/28 |
+| his stack (int8 KV, no spec) | 25/28 | 21/28\* |
+
+- **Off: identical.** Same 25/28, and the *same three* misses (a2, l2, c6) — no measurable quality
+  difference from int8 KV on this suite.
+- **On: not comparable yet.** 7 of 45 requests died with `[Errno 104] Connection reset by peer`
+  while his engine stayed up and logged no error; the 21/28 is those drops, not wrong answers.
+  Needs a re-run with retries before any number is quoted.
+- Artifacts: `eval_akmorley_int8_off.json`, `eval_akmorley_int8_on.json` (in `/home/manvel/ai/bonsai/`).
