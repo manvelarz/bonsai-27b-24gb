@@ -361,3 +361,20 @@ corrected to 587; the old sheet said 515).
   while his engine stayed up and logged no error; the 21/28 is those drops, not wrong answers.
   Needs a re-run with retries before any number is quoted.
 - Artifacts: `eval_akmorley_int8_off.json`, `eval_akmorley_int8_on.json` (in `/home/manvel/ai/bonsai/`).
+
+## int8-KV quality: CONFIRMED — two clean re-runs
+2026-11-02, same prompts, thinking on, `RETRIES=3`, 45 requests per run:
+
+- run A: **28/28, 0 errors**
+- run B: **28/28, 0 errors**
+- our stack (fp8 KV + MTP-3), same 28: **28/28**
+
+Thinking off stays **25/28**, with the *same three* misses as ours (a2, l2, c6).
+
+**Therefore the 7 `Connection reset by peer` in the first pass were an artifact of that run, not a
+kernel bug or instability** — most likely two engines briefly resident on the 24 GB card at once
+(our `bonsai-vllm` was restarted while his engine was up). 90 clean requests since.
+
+**Conclusion: his int8 KV costs nothing measurable on this suite.** The speed is free at this
+resolution. Caveat: 28 verifiable prompts is a sanity check, not a full eval — GSM8K-style battery
+still worth running before production.
