@@ -378,3 +378,45 @@ kernel bug or instability** — most likely two engines briefly resident on the 
 **Conclusion: his int8 KV costs nothing measurable on this suite.** The speed is free at this
 resolution. Caveat: 28 verifiable prompts is a sanity check, not a full eval — GSM8K-style battery
 still worth running before production.
+
+---
+
+## Log 2026-11-02 → 11-04 (int8 KV on *our* stack, boot engineering, niche scan)
+
+### 11-02 — quality retry: the connection resets were an artifact
+Two independent thinking-ON runs on his stack, `RETRIES=3`, 45 prompts each (90 requests):
+**run A 28/28, run B 28/28, zero errors**; no server-side restart, `oom=false`.
+Thinking-OFF: 25/28, **same three misses as ours** (a2, l2, c6) — same answers wrong, not just
+same score. Conclusion: the 7 resets in the 11-01 pass were caused by *my* sequencing (production
+restarted while his engine still held VRAM), not by his kernels. int8 KV costs nothing measurable
+at this resolution. `RETRIES` support added to `quality_eval.py`.
+
+### 11-03 — boot engineering (his stack)
+- `Dockerfile` + `.dockerignore` in `akmorley/`: CUDA 13.0 devel + python3.12/-dev/ninja + the
+  whole 8.9 GB venv baked in. Image `bonsai-akmorley:baked`, **25.2 GB**, build rc=0.
+- Boot times measured: **310 s** (unbaked, cold cache) → **220 s** (unbaked, warm cache) →
+  **206 s** (baked + warm cache, `WARM-READY in 206s`).
+- **Where the 206 s goes:** model load **109.98 s** (GGUF read + repack, 7.01 GiB), engine init
+  **72.17 s** of which **compilation 1.76 s**, remainder imports/plugin.
+- => the Triton cache works and the JIT is no longer the problem; **weight loading is**.
+  Tuning tables are not re-benchmarked at boot (table-driven, confirmed).
+
+### 11-04 — int8 per-token-head KV on OUR image
+- Appending flags to the image's `ENTRYPOINT` does not override it (implemented as a fixed
+  `vllm serve ...` array). The entrypoint is: model, `--max-model-len 262144`,
+  `--max-num-seqs 32`, `--max-num-batched-tokens 8192`, prefix caching, qwen3 parsers,
+  `--speculative-config {"method":"mtp","num_speculative_tokens":7}`.
+- With the entrypoint bypassed (`--entrypoint vllm serve <full args>`), int8 KV OOMs during init at
+  **the same 806 MiB request regardless of `--gpu-memory-utilization` 0.80 or 0.72** — the pool
+  fills the budget, then the last init allocation fails. Ratio flags cannot fix it.
+- **Fix: `--kv-cache-memory-bytes 10G`.** Boots in **170 s**, engine reports
+  **`GPU KV cache size: 276,627 tokens`** — fewer than fp8's 294,362 *because the cap binds*;
+  per-token it is thinner (~35 vs ~38 KiB). Raise the cap to ~13 GB for the capacity win.
+- Benchmarks did not run (mine): `ttft_sweep.py` does not read `BONSAI_PORT`, `load_sweep.py`
+  lives in `bonsai-blog/scripts/`, not `/ai/bonsai`.
+
+### Niche scan
+See `research/2026-11-scan.md`: upstream vLLM now has int8 per-token-head KV (PR #45361, merged
+2026-06-21; PR #41505 `int8_per_tensor`), FastMTP heads (Speculators 0.6.0), `pth-flash-attn`,
+and the Sep–Oct ternary wave (arXiv 2609.16338, 2608.01078, SAGE 2610.14745, Tetra 2609.35465,
+StagQ 2610.05977).
